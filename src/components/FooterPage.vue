@@ -21,10 +21,10 @@ import { RouterLink } from 'vue-router'
       <div>
         <h3 class="uppercase text-sm lg:text-base">Sell home</h3>
         <ul class="text-gray-400 text-sm lg:text-base">
-          <li><RouterLink to="/request">Request an offer</RouterLink></li>
-          <li><RouterLink to="/pricing">Pricing</RouterLink></li>
-          <li><RouterLink to="/reviews">Reviews</RouterLink></li>
-          <li><RouterLink to="/stories">Stories</RouterLink></li>
+          <li><RouterLink to="/calm">session calme</RouterLink></li>
+          <li><RouterLink to="/memory">See a memory</RouterLink></li>
+          <li><RouterLink to="/quote">See inspiring quote</RouterLink></li>
+          <li><RouterLink to="/stories">Create a memory</RouterLink></li>
         </ul>
       </div>
       <div>
