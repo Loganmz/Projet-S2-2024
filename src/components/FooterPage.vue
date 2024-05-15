@@ -6,15 +6,15 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTwitter from '@/components/icons/IconTwitter.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 import IconTiktok from '@/components/icons/IconTiktok.vue'
-import IconLogo from '@/components/icons/IconLogo.vue'
+import IconLogo from '@/components/icons/iconLogo.vue'
 import { RouterLink } from 'vue-router'
 
 
 </script>
 
 <template>
-   <footer class="container space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0">
-    <IconLogo class="mx-8 lg:col-span-1" />
+   <footer class="bg-sky-700 container space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0">
+    <IconLogo class=" mx-auto lg:col-span-1" />
     <nav
       class="px-5 columns-2 gap-8 space-y-8 lg:columns-3 lg:col-span-3 lg:px-0 *:break-inside-avoid *:space-y-3"
     >
