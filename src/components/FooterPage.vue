@@ -6,7 +6,7 @@ import IconInstagram from '@/components/icons/IconInstagram.vue'
 import IconTwitter from '@/components/icons/IconTwitter.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 import IconTiktok from '@/components/icons/IconTiktok.vue'
-import IconLogo from '@/components/icons/iconLogo.vue'
+import IconLogo from '@/components/icons/IconLogo.vue'
 import { RouterLink } from 'vue-router'
 
 
