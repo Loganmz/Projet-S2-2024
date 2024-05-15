@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router'
       class="px-5 columns-2 gap-8 space-y-8 lg:columns-3 lg:col-span-3 lg:px-0 *:break-inside-avoid *:space-y-3"
     >
       <div>
-        <h3 class="uppercase text-sm lg:text-base">Sell at home</h3>
+        <h3 class="uppercase text-sm lg:text-base">Sell home</h3>
         <ul class="text-gray-400 text-sm lg:text-base">
           <li><RouterLink to="/request">Request an offer</RouterLink></li>
           <li><RouterLink to="/pricing">Pricing</RouterLink></li>
