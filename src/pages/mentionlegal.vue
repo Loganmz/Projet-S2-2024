@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  fezv
+  <div></div>
 </template>
