@@ -33,7 +33,7 @@ import { RouterLink } from 'vue-router'
           <li><RouterLink to="/mentionLegal">Mentions légales</RouterLink></li>
           <li><RouterLink to="/politiqueConfidentialite">Politique de confidentialité</RouterLink></li>
           <li><RouterLink to="/cgu">Conditions générale d'utilisations</RouterLink></li>
-          <li><RouterLink to="/cookies">Help Center</RouterLink></li>
+          <li><RouterLink to="/cookies">Cookies</RouterLink></li>
         </ul>
       </div>
     </nav>
@@ -44,22 +44,27 @@ import { RouterLink } from 'vue-router'
       <ul class="flex gap-12 justify-center">
         <li>
           <a href="#" aria-label="Facebook"
-            ><IconFacebook class="fill-gray-400" aria-hidden="true"
+            ><IconFacebook class="fill-white" aria-hidden="true"
           /></a>
         </li>
         <li>
           <a href="#" aria-label="Instagram"
-            ><IconInstagram class="fill-gray-400" aria-hidden="true"
+            ><IconInstagram class="fill-white" aria-hidden="true"
           /></a>
         </li>
         <li>
           <a href="#" aria-label="Twitter"
-            ><IconTwitter class="fill-gray-400" aria-hidden="true"
+            ><IconTwitter class="fill-white" aria-hidden="true"
           /></a>
         </li>
         <li>
           <a href="#" aria-label="Linkedin"
-            ><IconLinkedin class="fill-gray-400" aria-hidden="true"
+            ><IconLinkedin class="fill-white" aria-hidden="true"
+          /></a>
+        </li>
+        <li>
+          <a href="#" aria-label="Tiktok"
+            ><IconTiktok class="fill-white" aria-hidden="true"
           /></a>
         </li>
       </ul>
