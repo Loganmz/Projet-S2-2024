@@ -2,6 +2,7 @@
 import { onErrorCaptured } from 'vue'
 import { RouterLink, RouterView } from 'vue-router/auto'
 import FooterPage from './components/FooterPage.vue'
+import HeaderPage from './components/HeaderPage.vue'
 
 onErrorCaptured((err, instance, info) => {
   console.error('erreur : ', err, '\ninfo : ', info, '\ncomposant : ', instance)
@@ -10,6 +11,7 @@ onErrorCaptured((err, instance, info) => {
 </script>
 
 <template>
+  <HeaderPage />
   <RouterView v-slot="{ Component }">
     <Suspense>
       <component :is="Component" />
