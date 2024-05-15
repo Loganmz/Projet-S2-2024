@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-   <footer class="bg-gradient-to-b from-cyan-200 to-sky-700 container space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0">
+   <footer class="bg-gradient-to-b from-sky-300 to-sky-700 container space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0">
     <IconLogo class=" mx-auto lg:col-span-1" />
     <nav
       class="px-5 columns-1 text-center gap-8 space-y-8 lg:columns-2 lg:col-span-3 lg:px-0 *:break-inside-avoid *:space-y-3 lg:text-left"
@@ -34,6 +34,8 @@ import { RouterLink } from 'vue-router'
           <li><RouterLink to="/politiqueConfidentialite">Politique de confidentialité</RouterLink></li>
           <li><RouterLink to="/cgu">Conditions générale d'utilisations</RouterLink></li>
           <li><RouterLink to="/cookies">Cookies</RouterLink></li>
+          <li><RouterLink to="/cgv">Conditions générale de vente</RouterLink></li>
+          
         </ul>
       </div>
     </nav>
