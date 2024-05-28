@@ -120,27 +120,31 @@ function closeMenu() {
         :class="{ '!visible opacity-100': activeMenu }"
         v-scroll-lock="activeMenu"
       >
-        <ul class="mt-[25vh] text-center lg:m-5 lg:flex lg:gap-6">
+        <ul class="mt-[15vh]  text-center lg:m-5 lg:flex lg:gap-6">
         
-          <li class="menu-item">
+          <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/sessionCalme" @click="closeMenu"
               >Session calme</RouterLink
             >
           </li>
-          <li class="menu-item">
+          <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/voirSouvenir" @click="closeMenu"
               >Voir un souvenir</RouterLink
             >
           </li>
-          <li class="menu-item">
+          <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/voirCitation" @click="closeMenu">Voir une citation inspirante</RouterLink>
           </li>
-          <li class="menu-item">
+          <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/creerSouvenir" @click="closeMenu">Créer un souvenir</RouterLink>
           </li>
-          <li class="menu-item">
+          <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/contact" @click="closeMenu">Contact</RouterLink>
           </li>
+          <li class="menu-item mb-10">
+            <RouterLink class="menu-link" to="/APropos" @click="closeMenu">À propos</RouterLink>
+          </li>
+          
           
 
         </ul>
