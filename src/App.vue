@@ -17,5 +17,17 @@ onErrorCaptured((err, instance, info) => {
       <component :is="Component" />
     </Suspense>
   </RouterView>
+  <div>
+    <h1>Connexion</h1>
+    <div>
+      <p><label>Email : </label><input type="email" id="email" /></p>
+      <p><label>Password : </label><input type="password" id="password" /></p>
+      <p><label>Name : </label><input type="text" id="name" /></p>
+      <p><button v-on:click="signUp()">Sign Up</button></p>
+      <button v-on:click="signIn()">Sign In</button>
+      <button v-on:click="signOut()">Sign Out</button>
+      <label id="status">You are not yet connected !</label>
+    </div>
+  </div>
   <FooterPage />
 </template>
