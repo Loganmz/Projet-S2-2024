@@ -6,7 +6,7 @@ import HeaderPage from './components/HeaderPage.vue'
 
 
 onErrorCaptured((err, instance, info) => {
-  console.error('erreur : ', err, '\ninfo : ', info, '\ncomposant : ', instance)
+  console.error('erreur : ', err, '/ninfo : ', info, '/ncomposant : ', instance)
   return true
 })
 </script>
