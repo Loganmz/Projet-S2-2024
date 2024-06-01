@@ -95,26 +95,10 @@ console.log('coucou' + data.value)
             placeholder="Confirmer le mot de passe"
           />
         </div>
-        <div class="flex gap-12">
-          <div class="flex flex-row">
-            <label class="mb-4">
-              <label for="polconfident" class="flex items-center text-gray-400">
-                <input
-                  type="checkbox"
-                  id="polconfident"
-                  v-model="polconfident"
-                  class="appearance-none mr-2 w-4 h-4 border-2 border-gray-300 rounded-sm bg-none checked:bg-blue-500"
-                />
-                <div class="gap-1">
-                  <span class="text-xs">J'approuve </span>
+        <div class="flex items-center mb-4">
+                    <input type="checkbox" v-model="polconfident" class="mr-2" />
+                    <label for="polconfident" class="text-sm">J'approuve <RouterLink to="/PolitiqueConfidentialite" class="text-blue-500">la politique de confidentialité</RouterLink></label>
                 </div>
-              </label>
-              <RouterLink to="/PolitiqueConfidentialite"
-                ><span class="text-xs">la politique de confidentialité</span></RouterLink
-              >
-            </label>
-          </div>
-        </div>
         <div class="flex justify-center lg:justify-center lg:pt-8">
           <Button @click="handleValidation" url="" text="Créer un compte" />
         </div>
