@@ -1,12 +1,37 @@
-<script>
+<template>
+  <div class="h-screen flex flex-col bg-black text-white">
+    <div class="flex justify-start p-4">
+      <button @click="goBack" class="text-2xl">&larr;</button>
+    </div>
+    <input v-model="lieu" type="text" placeholder="Entrez le lieu" class="mb-4 p-2 rounded text-black mx-4">
+    <div class="flex-grow flex items-center justify-center">
+      <video ref="video" class="w-full h-full object-cover" autoplay></video>
+    </div>
+    <div class="flex justify-center mb-4">
+      <button @click="capturePhoto" class="bg-white rounded-full w-12 h-12"></button>
+    </div>
+    <canvas ref="canvas" class="hidden"></canvas>
+  </div>
+</template>
 
+<script>
 import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://127.0.0.1:8090/#/collections?collectionId=m54u9zo33xgvuce');
-import { savePhoto } from '../backend.ts';
 import { useRouter } from 'vue-router';
 
+const pb = new PocketBase('http://127.0.0.1:8090/#/collections?collectionId=m54u9zo33xgvuce');
 
 export default {
+  setup() {
+    const router = useRouter();
+
+    const goBack = () => {
+      router.go(-1);
+    };
+
+    return {
+      goBack,
+    };
+  },
   data() {
     return {
       photo: null,
@@ -51,34 +76,18 @@ export default {
         method: 'POST',
         body: formData,
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Photo enregistrée avec succès :', data);
-        alert('Photo enregistrée avec succès');
-      })
-      .catch(error => {
-        console.error('Erreur lors de l\'enregistrement de la photo :', error);
-      });
-    },
-    goBack() {
-      // Logic to go back to the previous page or component
+        .then(response => response.json())
+        .then(data => {
+          console.log('Photo enregistrée avec succès :', data);
+          alert('Photo enregistrée avec succès');
+        })
+        .catch(error => {
+          console.error('Erreur lors de l\'enregistrement de la photo :', error);
+        });
     },
   },
 };
-
-
 </script>
 
-<template>
-  <div class="h-screen flex flex-col justify-between items-center bg-black text-white">
-    <div class="w-full flex justify-start p-4">
-      <button @click="goBack"class="text-2xl">&larr;</button>
-    </div>
-    <input v-model="lieu" type="text" placeholder="Entrez le lieu" class="mb-4 p-2 rounded text-black">
-    <video ref="video" class="flex-grow w-full" autoplay></video>
-    <button @click="capturePhoto" class="mb-4 bg-white rounded-full w-16 h-16"></button>
-    <canvas ref="canvas" class="hidden"></canvas>
-  </div>
-</template>
 
 

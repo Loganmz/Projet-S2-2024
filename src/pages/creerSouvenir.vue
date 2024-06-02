@@ -17,7 +17,9 @@ const createSouvenir = () => {
 
 <template>
 <h1 class="text-3xl font-bold m-8 text-center lg:text-4xl">Créer un souvenir</h1>
-<div class="flex justify-center lg:justify-center lg:pt-8">
+<p class="m-5">Ici, vous pouvez créer vos propres souvenirs et capturer les meilleurs moments de vos journées.</p>
+<img src="/public\img\voirSouvenir.png" alt="Créer un souvenir" class="w-full h-auto mt-4" />
+<div class="flex justify-center lg:justify-center lg:pt-8 mb-12">
     <Button @click="createSouvenir" url="" text="Créer un souvenir" />    
 </div>
 
