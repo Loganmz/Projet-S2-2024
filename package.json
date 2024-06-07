@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^1.7.2",
     "vue": "^3.4.21",
+    "vue-cal": "^4.8.1",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

@@ -1,105 +1,109 @@
 <template>
   <div class="p-4">
-    <h1 class="text-center text-2xl mb-4">Memory</h1>
-    <div class="grid grid-cols-7 gap-4">
-      <div v-for="day in calendarDays" :key="day.date" class="flex flex-col items-center relative">
-        <div>{{ day.label }}</div>
-        <div>{{ getMonthName(day.date) }}</div>
-        <div 
-          v-for="photo in day.photos" 
-          :key="photo.id" 
-          class="w-16 h-16 bg-cover bg-center mb-2 absolute inset-0" 
-          :style="{ backgroundImage: `url(${photo.url})` }"
-          @click="openLightbox(photo)">
+    <div class="flex justify-between mb-4">
+      <span class="text-xl font-bold">{{ currentYear }}</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="border p-2" v-for="month in visibleMonths" :key="month">
+        <div class="font-bold text-center mb-2">{{ getMonthName(month) }}</div>
+        <div class="grid grid-cols-7 gap-1">
+          <div class="border p-1" v-for="day in getDaysInMonth(month)" :key="day.date">
+            <div class="text-right">{{ day.date }}</div>
+            <div>
+              <img
+                v-for="photo in day.photos"
+                :key="photo.id"
+                :src="photo.url"
+                class="w-full h-auto cursor-pointer"
+                alt="photo"
+                @click="showPhoto(photo.url)"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div v-if="lightboxPhoto" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div class="bg-white p-4">
-        <img :src="lightboxPhoto.url" alt="">
-        <button @click="lightboxPhoto = null">Close</button>
+
+    <!-- Modal -->
+    <div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal">
+      <div class="absolute inset-0 bg-black opacity-75"></div>
+      <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
+        <img :src="selectedPhotoUrl" class="max-w-full max-h-full" alt="photo" />
+        <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white">&times;</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import PocketBase from 'pocketbase'
+import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090')
+const pb = new PocketBase('http://127.0.0.1:8090');
 
 export default {
   data() {
     return {
-      calendarDays: [],
-      photos: [], // Ajout des photos dans le data
-      lightboxPhoto: null,
-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], // Ajoutez cette ligne
-    }
-  },
-  async mounted() {
-    await this.loadPhotos()
-    this.generateCalendar()
-  },
-  methods: {
-    async loadPhotos() {
-      try {
-        const records = await pb.collection('Souvenirs_photo').getFullList()
-        const photos = records.map((record) => ({
-          id: record.id,
-          date: new Date(record.date_de_la_photo),
-          url: pb.getFileUrl(record, record.photo)
-        }))
-
-        this.photos = photos
-      } catch (err) {
-        console.error('Erreur lors du chargement des photos : ', err)
-      }
-    },
-    openLightbox(photo) {
-      this.lightboxPhoto = photo;
-    },
-    getMonthName(dateString) {
-    const date = new Date(dateString);
-    const monthIndex = date.getMonth();
-    return this.months[monthIndex];
-  },
-
-    generateCalendar() {
-      const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate()
-      const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1).getDay()
-
-      this.calendarDays = Array.from({ length: daysInMonth }, (_, i) => {
-        const date = new Date(this.currentYear, this.currentMonth, i + 1)
-        return {
-          date,
-          label: date.getDate(),
-          photos: this.photos.filter(
-            (photo) =>
-              photo.date.getDate() === date.getDate() &&
-              photo.date.getMonth() === date.getMonth() &&
-              photo.date.getFullYear() === date.getFullYear()
-          )
-        }
-      })
-
-      // Remplir la première semaine du calendrier avec des jours vides si nécessaire
-      for (let i = 0; i < firstDayOfMonth; i++) {
-        this.calendarDays.unshift({
-          date: null,
-          label: '',
-          photos: []
-        })
-      }
-    }
+      photos: [],
+      currentYear: 2024,
+      currentMonth: null,
+      showModal: false,
+      selectedPhotoUrl: '',
+    };
   },
   computed: {
-    currentYear() {
-      return new Date().getFullYear()
+    visibleMonths() {
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1;
+      const months = [];
+      for (let month = 1; month <= currentMonth; month++) {
+        months.push(month);
+      }
+      return months;
     },
-    currentMonth() {
-      return new Date().getMonth()
-    }
-  }
-}
+  },
+  mounted() {
+    this.currentMonth = new Date().getMonth() + 1;
+    this.fetchPhotos();
+  },
+  methods: {
+    async fetchPhotos() {
+      try {
+        const records = await pb.collection('Souvenirs_photo').getFullList();
+        this.photos = records.map(record => ({
+          id: record.id,
+          date: new Date(record.date_de_la_photo),
+          url: pb.files.getUrl(record, record.photo),
+        }));
+      } catch (err) {
+        console.error('Erreur lors de la récupération des photos :', err);
+      }
+    },
+    getMonthName(month) {
+      return new Date(0, month - 1).toLocaleString('default', { month: 'long' });
+    },
+    getDaysInMonth(month) {
+      const year = this.currentYear;
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const days = [];
+      for (let i = 1; i <= daysInMonth; i++) {
+        days.push({
+          date: i,
+          photos: this.photos.filter(photo => {
+            const photoDate = photo.date;
+            return photoDate.getFullYear() === year && photoDate.getMonth() === month - 1 && photoDate.getDate() === i;
+          }),
+        });
+      }
+      return days;
+    },
+    showPhoto(url) {
+      this.selectedPhotoUrl = url;
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+      this.selectedPhotoUrl = '';
+    },
+  },
+};
 </script>

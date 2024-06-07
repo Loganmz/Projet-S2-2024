@@ -17,6 +17,8 @@
 <script>
 import PocketBase from 'pocketbase';
 import { useRouter } from 'vue-router';
+import VueCal from 'vue-cal';
+
 
 const pb = new PocketBase('http://127.0.0.1:8090/#/collections?collectionId=m54u9zo33xgvuce');
 

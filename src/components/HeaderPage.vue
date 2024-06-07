@@ -96,7 +96,7 @@ function closeMenu() {
   -->
 
 
-  <header class="top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 bg-sky-700">
+  <header class="fixed top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 bg-sky-700">
     <div class="flex items-center">
       <RouterLink to="/">
         <IconLogo />
@@ -178,5 +178,6 @@ function closeMenu() {
       </nav>
     </div>
   </header>
-
+  <main class="pt-20">
+  </main>
 </template>
