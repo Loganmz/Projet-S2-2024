@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="p-4">
     <div class="flex justify-between mb-4">
       <span class="text-xl font-bold">{{ currentYear }}</span>
@@ -120,4 +120,4 @@ export default {
   },
 };
 
-</script>
+</script> -->
