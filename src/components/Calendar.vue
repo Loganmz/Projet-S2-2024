@@ -29,6 +29,9 @@
       <div class="absolute inset-0 bg-black opacity-75"></div>
       <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
         <img :src="selectedPhotoUrl" class="max-w-full max-h-full" alt="photo" />
+        <div class="text-center mt-2">
+          {{ getPhotoDate(selectedPhotoUrl) }}
+        </div>
         <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white">&times;</button>
       </div>
     </div>
@@ -99,11 +102,22 @@ export default {
     showPhoto(url) {
       this.selectedPhotoUrl = url;
       this.showModal = true;
+      
     },
     closeModal() {
       this.showModal = false;
       this.selectedPhotoUrl = '';
     },
+    getPhotoDate(url) {
+  const photo = this.photos.find(photo => photo.url === url);
+  if (photo) {
+    return photo.date.toLocaleDateString(); // Formate la date en une chaîne de caractères
+  }
+  return '';
+},
+
+
   },
 };
+
 </script>
