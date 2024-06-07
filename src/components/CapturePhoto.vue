@@ -17,7 +17,6 @@
 <script>
 import PocketBase from 'pocketbase';
 import { useRouter } from 'vue-router';
-import VueCal from 'vue-cal';
 
 
 const pb = new PocketBase('http://127.0.0.1:8090/#/collections?collectionId=m54u9zo33xgvuce');
@@ -53,19 +52,36 @@ export default {
       }
     },
     capturePhoto() {
-      const video = this.$refs.video;
-      const canvas = this.$refs.canvas;
-      const context = canvas.getContext('2d');
+  const lastPhotoDate = localStorage.getItem('lastPhotoDate');
+  console.log('Last photo date:', lastPhotoDate); // Débogage
 
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+  const today = new Date().toISOString().split('T')[0];
+  console.log('Today:', today); // Débogage
 
-      context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-      this.photo = canvas.toDataURL('image/png');
+  if (lastPhotoDate === today) {
+    alert('Vous avez déjà pris une photo aujourd\'hui.');
+    return;
+    
+  }
+  
 
-      // Save photo to PocketBase
-      this.savePhoto();
-    },
+  const video = this.$refs.video;
+  const canvas = this.$refs.canvas;
+  const context = canvas.getContext('2d');
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+  this.photo = canvas.toDataURL('image/png');
+
+  // Save photo to PocketBase
+  this.savePhoto();
+
+  // Mettre à jour la date de la dernière photo dans le stockage local
+  localStorage.setItem('lastPhotoDate', today);
+},
+
     async savePhoto() {
       const dataURL = this.photo;
       const blob = await (await fetch(dataURL)).blob();
