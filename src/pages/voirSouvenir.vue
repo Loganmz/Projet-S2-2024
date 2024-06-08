@@ -4,7 +4,12 @@
       <span class="text-xl font-bold">{{ currentYear }}</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="border p-2" v-for="month in visibleMonths" :key="month">
+      <div
+        class="border p-2"
+        v-for="month in visibleMonths"
+        :key="month"
+        :ref="month === currentMonth ? 'currentMonth' : null"
+      >
         <div class="font-bold text-center mb-2">{{ getMonthName(month) }}</div>
         <div class="grid grid-cols-7 gap-1">
           <div class="border p-1" v-for="day in getDaysInMonth(month)" :key="day.date">
@@ -38,6 +43,8 @@
   </div>
 </template>
 
+
+
 <script>
 import PocketBase from 'pocketbase';
 
@@ -55,20 +62,21 @@ export default {
   },
   computed: {
     visibleMonths() {
-  const currentYear = new Date().getFullYear();
-  const months = [];
-  for (let month = 1; month <= 12; month++) {
-    months.push(month);
-  }
-  return months;
-},
-
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth() + 1; // Les mois sont indexés à partir de 0
+      const months = [];
+      for (let month = 1; month <= currentMonth; month++) {
+        months.push(month);
+      }
+      return months;
+    },
   },
   mounted() {
-  this.currentYear = new Date().getFullYear();
-  this.currentMonth = new Date().getMonth() + 1; // Ajoutez 1 car les mois sont indexés à partir de 0
-  this.fetchPhotos();
-},
+    this.currentYear = new Date().getFullYear();
+    this.currentMonth = new Date().getMonth() + 1; // Ajoutez 1 car les mois sont indexés à partir de 0
+    this.fetchPhotos();
+    this.scrollToCurrentMonth();
+  },
   methods: {
     async fetchPhotos() {
       try {
@@ -103,22 +111,35 @@ export default {
     showPhoto(url) {
       this.selectedPhotoUrl = url;
       this.showModal = true;
-      
     },
     closeModal() {
       this.showModal = false;
       this.selectedPhotoUrl = '';
     },
     getPhotoDate(url) {
-  const photo = this.photos.find(photo => photo.url === url);
-  if (photo) {
-    return photo.date.toLocaleDateString(); // Formate la date en une chaîne de caractères
-  }
-  return '';
-},
+      const photo = this.photos.find(photo => photo.url === url);
+      if (photo) {
+        return photo.date.toLocaleDateString(); // Formate la date en une chaîne de caractères
+      }
+      return '';
+    },
+    scrollToCurrentMonth() {
+      this.$nextTick(() => {
+        const currentMonthElement = this.$refs.currentMonth;
+        if (currentMonthElement && currentMonthElement.length > 0) {
+          const offset = -100; 
+          const elementPosition = currentMonthElement[0].getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset + offset;
 
-
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }
+      });
+    },
   },
 };
+
 
 </script>
