@@ -45,7 +45,7 @@ console.log('coucou' + data.value)
                 <input type="password" id="password" v-model="data.password" class="w-full placeholder:text-black font-light px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md" placeholder="Mot de passe"/>
             </div>
             <div class="flex justify-center lg:justify-center lg:pt-8">
-                <Button url="" text="Se connecter" />    
+                <Button @click="handleValidation" url="" text="Se connecter" />    
             </div>
         </form>
     </div>
