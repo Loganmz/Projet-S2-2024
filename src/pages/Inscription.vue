@@ -65,60 +65,67 @@ const handleFileChange = (event) => {
     <div class="container mx-auto mt-2">
       <form class="max-w-md mx-auto text-black">
         <div class="mb-5">
+          <label for="prenom">Prénom</label>
           <input
             type="text"
             id="prenom"
             v-model="data.prenom"
             class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
-            placeholder="Prénom"
+            placeholder="ex : Lucas"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Nom</label>
           <input
             type="text"
             id="nom"
             v-model="data.nom"
             class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
-            placeholder="Nom"
+            placeholder="ex : Dupont"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Nom d'utilisateur</label>
           <input
             type="text"
             id="username"
             v-model="data.username"
             class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
-            placeholder="Nom d'utilisateur"
+            placeholder="ex : lucas_dp"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Email</label>
           <input
             type="email"
             id="email"
             v-model="data.email"
             class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
-            placeholder="Email"
+            placeholder="ex : lucas.dupont@gmail.com"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Mot de passe</label>
           <input
             type="password"
             id="password"
             v-model="data.password"
             class="w-full placeholder:text-black font-light px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
-            placeholder="Mot de passe (8 caractères minimum)"
+            placeholder="8 caractères minimum"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Confirmer le mot de passe</label>
           <input
             type="password"
             id="confirmPassword"
             v-model="data.passwordConfirm"
             class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
-            placeholder="Confirmer le mot de passe"
+            placeholder="8 caractères minimum"
           />
         </div>
         <div class="mb-5">
+          <label for="nom">Photo de profil</label>
           <input
             type="file"
             id="photo_de_profil"
