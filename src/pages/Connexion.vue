@@ -57,10 +57,13 @@ console.log('coucou' + data.value)
             placeholder="8 caractères minimum"
           />
         </div>
-        <p class="text-red-500 mb-6">{{ errorMessage }}</p>
-        <div class="flex justify-center mb-10 lg:justify-center lg:pt-8">
+        <p class="text-red-500 mb-2">{{ errorMessage }}</p>
+        <div class="flex justify-center mb-2 lg:justify-center lg:pt-8">
           <Button @click="handleValidation" url="" text="Se connecter" />
         </div>
+        <div class="flex justify-center mb-4">
+    <p>Vous n'êtes pas encore inscrit ? </p><RouterLink to="/Inscription" class="text-sky-500">Inscrivez-vous ici !</RouterLink>
+  </div>
       </form>
     </div>
   </div>

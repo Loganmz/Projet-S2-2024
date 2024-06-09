@@ -139,15 +139,18 @@ const handleFileChange = (event) => {
           <input type="checkbox" id="polconfident" v-model="polconfident" class="mr-2" />
           <label for="polconfident" class="text-sm"
             >J'approuve
-            <RouterLink to="/PolitiqueConfidentialite" class="text-blue-500"
+            <RouterLink to="/PolitiqueConfidentialite" class="text-sky-500"
               >la politique de confidentialité</RouterLink
             ></label
           >
         </div>
-        <p class="text-red-500 mb-6">{{ errorMessage }}</p>
-        <div class="flex justify-center mb-6 lg:justify-center lg:pt-8">
+        <p class="text-red-500 ">{{ errorMessage }}</p>
+        <div class="flex justify-center mb-2 lg:justify-center lg:pt-4">
           <Button @click="handleValidation" url="" text="Créer un compte" />
         </div>
+        <div class="flex justify-center mb-4">
+    <p>Déjà inscrit ? </p><RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
+  </div>
       </form>
     </div>
   </div>
