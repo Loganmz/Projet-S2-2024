@@ -3,11 +3,16 @@ import { type TypedPocketBase } from './pocketbase-types.js';
 
 export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE) as TypedPocketBase;
 
-export async function Adduser(event: Object) {
+export async function Adduser(formData: FormData) {
     try {
-        const record = await pb.collection('users').create(event);
+        // Ajoutez le champ passwordConfirm à formData
+        formData.append('passwordConfirm', formData.get('password'));
+        const record = await pb.collection('users').create(formData, {
+            $autoCancel: false,
+        });
         return record;
     } catch (error) {
+        console.error('Erreur lors de la création de l\'utilisateur :', error);
         throw new Error('Erreur lors de la création de l\'utilisateur : ' + error.message);
     }
 }

@@ -49,6 +49,9 @@
           <div class="flex justify-center mb-2 lg:justify-center lg:pt-4">
           <Button class="mt-4" url="" text="Enregistrer" />
         </div>
+        <div class="flex items-center justify-center mt-4">
+        <Button @click="logout" text="Se déconnecter" />
+      </div>
         </div>
       </form>
     </div>
@@ -58,42 +61,54 @@
 <script setup lang="ts">
 import Button from '@/components/Button.vue';
 import IconCamera from '@/components/icons/IconCamera.vue';
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { pb } from '@/backend'; // Assurez-vous que l'instance PocketBase est importée correctement
 
-const nom = ref<string>('')
-const prenom = ref<string>('')
-const profileImage = ref<string | null>(null)
+const router = useRouter();
+const nom = ref<string>('');
+const prenom = ref<string>('');
+const profileImage = ref<string | null>(null);
 
 const onFileChange = (event: Event) => {
-  const input = event.target as HTMLInputElement
+  const input = event.target as HTMLInputElement;
   if (input.files && input.files[0] && input.files[0].type.startsWith('image/')) {
-    const reader = new FileReader()
+    const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target) {
-        profileImage.value = e.target.result as string
+        profileImage.value = e.target.result as string;
       }
-    }
-    reader.readAsDataURL(input.files[0])
+    };
+    reader.readAsDataURL(input.files[0]);
   }
-}
+};
 
 const enregistrerProfil = () => {
-  console.log('Nom:', nom.value)
-  console.log('Prénom:', prenom.value)
-  console.log('Profile Image:', profileImage.value)
-}
+  console.log('Nom:', nom.value);
+  console.log('Prénom:', prenom.value);
+  console.log('Profile Image:', profileImage.value);
+};
 
-import { useHead } from '@unhead/vue'
+const logout = async () => {
+  try {
+    pb.authStore.clear(); // Efface le token d'authentification et déconnecte l'utilisateur
+    router.push('/connexion'); // Redirige vers la page de connexion après déconnexion
+  } catch (error) {
+    console.error('Erreur lors de la déconnexion:', error);
+  }
+};
+
+import { useHead } from '@unhead/vue';
 useHead({
   title: 'Profile | PuryMind',
-    meta: [
-        {
-        name: 'description',
-        content: 'Votre profil PuryMind'
-        }
-    ]
-})
-
+  meta: [
+    {
+      name: 'description',
+      content: 'Votre profil PuryMind',
+    },
+  ],
+});
 </script>
+
 
 

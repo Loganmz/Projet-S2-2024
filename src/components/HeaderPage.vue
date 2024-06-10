@@ -6,6 +6,7 @@ import IconTwitter from '@/components/icons/IconTwitter.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 import IconTiktok from '@/components/icons/IconTiktok.vue'
 import IconLogo from '@/components/icons/IconLogo.vue'
+import IconProfil from '@/components/icons/IconProfil.vue'
 
 const activeMenu = ref(false)
 
@@ -24,12 +25,11 @@ function closeMenu() {
         <IconLogo />
       </RouterLink>
     </div>
-
     <div class="flex items-center gap-4">
-      <button
-        class="relative z-50 flex h-5 w-8 flex-col justify-between *:h-[2px] *:w-full *:bg-white *:transition-all *:duration-300 *:ease lg:hidden"
-        @click="activeMenu = !activeMenu"
-      >
+      <RouterLink to="/profile">
+        <IconProfil />
+      </RouterLink>
+      <button class="relative z-50 flex h-5 w-8 flex-col justify-between *:h-[2px] *:w-full *:bg-white *:transition-all *:duration-300 *:ease lg:hidden" @click="activeMenu = !activeMenu">
         <div :class="{ 'translate-y-[9px] rotate-45 !bg-white': activeMenu }"></div>
         <div :class="{ '!bg-white opacity-0': activeMenu }"></div>
         <div :class="{ '-translate-y-[9px] -rotate-45 !bg-white': activeMenu }"></div>

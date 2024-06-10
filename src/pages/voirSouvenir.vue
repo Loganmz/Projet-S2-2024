@@ -43,103 +43,97 @@
   </div>
 </template>
 
-
-
-<script>
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick } from 'vue';
 import PocketBase from 'pocketbase';
 
 const pb = new PocketBase('http://127.0.0.1:8090');
 
-export default {
-  data() {
-    return {
-      photos: [],
-      currentYear: 2024,
-      currentMonth: null,
-      showModal: false,
-      selectedPhotoUrl: '',
-    };
-  },
-  computed: {
-    visibleMonths() {
-      const currentYear = new Date().getFullYear();
-      const currentMonth = new Date().getMonth() + 1; // Les mois sont indexés à partir de 0
-      const months = [];
-      for (let month = 1; month <= currentMonth; month++) {
-        months.push(month);
-      }
-      return months;
-    },
-  },
-  mounted() {
-    this.currentYear = new Date().getFullYear();
-    this.currentMonth = new Date().getMonth() + 1; // Ajoutez 1 car les mois sont indexés à partir de 0
-    this.fetchPhotos();
-    this.scrollToCurrentMonth();
-  },
-  methods: {
-    async fetchPhotos() {
-      try {
-        const records = await pb.collection('Souvenirs_photo').getFullList();
-        this.photos = records.map(record => ({
-          id: record.id,
-          date: new Date(record.date_de_la_photo),
-          url: pb.files.getUrl(record, record.photo),
-        }));
-      } catch (err) {
-        console.error('Erreur lors de la récupération des photos :', err);
-      }
-    },
-    getMonthName(month) {
-      return new Date(0, month - 1).toLocaleString('default', { month: 'long' });
-    },
-    getDaysInMonth(month) {
-      const year = this.currentYear;
-      const daysInMonth = new Date(year, month, 0).getDate();
-      const days = [];
-      for (let i = 1; i <= daysInMonth; i++) {
-        days.push({
-          date: i,
-          photos: this.photos.filter(photo => {
-            const photoDate = photo.date;
-            return photoDate.getFullYear() === year && photoDate.getMonth() === month - 1 && photoDate.getDate() === i;
-          }),
-        });
-      }
-      return days;
-    },
-    showPhoto(url) {
-      this.selectedPhotoUrl = url;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-      this.selectedPhotoUrl = '';
-    },
-    getPhotoDate(url) {
-      const photo = this.photos.find(photo => photo.url === url);
-      if (photo) {
-        return photo.date.toLocaleDateString(); // Formate la date en une chaîne de caractères
-      }
-      return '';
-    },
-    scrollToCurrentMonth() {
-      this.$nextTick(() => {
-        const currentMonthElement = this.$refs.currentMonth;
-        if (currentMonthElement && currentMonthElement.length > 0) {
-          const offset = -100; 
-          const elementPosition = currentMonthElement[0].getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset + offset;
+const photos = ref([]);
+let currentYear = ref(2024);
+let currentMonth = ref<number | null>(new Date().getMonth() + 1); // Initialisez currentMonth directement ici
+let showModal = ref(false);
+let selectedPhotoUrl = ref('');
+const currentMonthRef = ref<HTMLDivElement | null>(null); // Créer une référence pour le mois en cours
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          });
-        }
-      });
-    },
-  },
-};
+const visibleMonths = computed(() => {
+  const currentYearValue = new Date().getFullYear();
+  const currentMonthValue = new Date().getMonth() + 1; // Les mois sont indexés à partir de 0
+  const months = [];
+  for (let month = 1; month <= currentMonthValue; month++) {
+    months.push(month);
+  }
+  return months;
+});
 
+onMounted(() => {
+  currentYear.value = new Date().getFullYear();
+  fetchPhotos();
+});
 
+async function fetchPhotos() {
+  try {
+    const records = await pb.collection('Souvenirs_photo').getFullList();
+    photos.value = records.map(record => ({
+      id: record.id,
+      date: new Date(record.date_de_la_photo),
+      url: pb.files.getUrl(record, record.photo),
+    }));
+    nextTick(() => {
+      scrollToCurrentMonth(); // Appel de scrollToCurrentMonth après avoir récupéré les photos
+    });
+  } catch (err) {
+    console.error('Erreur lors de la récupération des photos :', err);
+  }
+}
+
+function getMonthName(month: number) {
+  return new Date(0, month - 1).toLocaleString('default', { month: 'long' });
+}
+
+function getDaysInMonth(month: number) {
+  const year = currentYear.value;
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const days = [];
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push({
+      date: i,
+      photos: photos.value.filter(photo => {
+        const photoDate = photo.date;
+        return photoDate.getFullYear() === year && photoDate.getMonth() === month - 1 && photoDate.getDate() === i;
+      }),
+    });
+  }
+  return days;
+}
+
+function showPhoto(url: string) {
+  selectedPhotoUrl.value = url;
+  showModal.value = true;
+}
+
+function closeModal() {
+  showModal.value = false;
+  selectedPhotoUrl.value = '';
+}
+
+function getPhotoDate(url: string) {
+  const photo = photos.value.find(photo => photo.url === url);
+  if (photo) {
+    return photo.date.toLocaleDateString(); // Formate la date en une chaîne de caractères
+  }
+  return '';
+}
+
+function scrollToCurrentMonth() {
+  const currentMonthElement = currentMonthRef.value; // Accéder à la référence créée
+  if (currentMonthElement) {
+    currentMonthElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 </script>
+
+
+
+
+

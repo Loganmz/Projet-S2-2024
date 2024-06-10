@@ -16,12 +16,12 @@ const data = ref({
   passwordConfirm: '',
   prenom: '',
   nom: '',
-  photo_de_profil: '' // Ajouter le champ photo_de_profil
+  photo_de_profil: null as File | null
 })
 
 const handleValidation = async () => {
   console.log('Valeurs des champs avant la validation :', data.value)
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Regular expression for email validation
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   if (
     data.value.username === '' ||
@@ -31,7 +31,7 @@ const handleValidation = async () => {
     data.value.prenom === '' ||
     data.value.nom === ''
   ) {
-    errorMessage.value = '⚠ Veuillez remplir tous les champs' // Mettre à jour le message d'erreur
+    errorMessage.value = '⚠ Veuillez remplir tous les champs'
   } else {
     if (polconfident.value === false) {
       errorMessage.value = '⚠ Veuillez accepter la politique de confidentialité'
@@ -42,31 +42,44 @@ const handleValidation = async () => {
     } else if (!emailPattern.test(data.value.email)) {
       errorMessage.value = '⚠ Veuillez entrer une adresse email valide'
     } else {
-      Adduser(data.value)
-      router.push('../')
-      console.log('Utilisateur ajouté avec succès :', data.value)
-      errorMessage.value = ''
+      try {
+        const formData = new FormData();
+        formData.append('username', data.value.username);
+        formData.append('email', data.value.email);
+        formData.append('password', data.value.password);
+        formData.append('prenom', data.value.prenom);
+        formData.append('nom', data.value.nom);
+        if (data.value.photo_de_profil) {
+          formData.append('photo_de_profil', data.value.photo_de_profil);
+        }
+        await Adduser(formData);
+        router.push('../');
+        console.log('Utilisateur ajouté avec succès :', data.value);
+        errorMessage.value = '';
+      } catch (error) {
+        errorMessage.value = 'Erreur lors de la création de l\'utilisateur : ' + error.message;
+      }
     }
   }
 }
 
-console.log('coucou' + data.value)
-
-const handleFileChange = (event) => {
-  data.value.photo_de_profil = event.target.files[0]
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files[0]) {
+    data.value.photo_de_profil = target.files[0];
+  }
 }
 
 import { useHead } from '@unhead/vue'
 useHead({
   title: 'Inscription | PuryMind',
-    meta: [
-        {
-        name: 'description',
-        content: ' Page d inscription de PuryMind, venez vous découvrir avec PuryMind !'
-        }
-    ]
+  meta: [
+    {
+      name: 'description',
+      content: ' Page d inscription de PuryMind, venez vous découvrir avec PuryMind !'
+    }
+  ]
 })
-
 </script>
 
 <template>
@@ -75,7 +88,7 @@ useHead({
       <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl">Créer un compte</h1>
     </div>
     <div class="container mx-auto mt-2">
-      <form class="max-w-md mx-auto text-black">
+      <form class="max-w-md mx-auto text-black" @submit.prevent="handleValidation">
         <div class="mb-5">
           <label for="prenom">Prénom</label>
           <input
@@ -97,7 +110,7 @@ useHead({
           />
         </div>
         <div class="mb-5">
-          <label for="nom">Nom d'utilisateur</label>
+          <label for="username">Nom d'utilisateur</label>
           <input
             type="text"
             id="username"
@@ -107,7 +120,7 @@ useHead({
           />
         </div>
         <div class="mb-5">
-          <label for="nom">Email</label>
+          <label for="email">Email</label>
           <input
             type="email"
             id="email"
@@ -117,7 +130,7 @@ useHead({
           />
         </div>
         <div class="mb-5">
-          <label for="nom">Mot de passe</label>
+          <label for="password">Mot de passe</label>
           <input
             type="password"
             id="password"
@@ -127,7 +140,7 @@ useHead({
           />
         </div>
         <div class="mb-5">
-          <label for="nom">Confirmer le mot de passe</label>
+          <label for="confirmPassword">Confirmer le mot de passe</label>
           <input
             type="password"
             id="confirmPassword"
@@ -137,7 +150,7 @@ useHead({
           />
         </div>
         <div class="mb-5">
-          <label for="nom">Photo de profil</label>
+          <label for="photo_de_profil">Photo de profil</label>
           <input
             type="file"
             id="photo_de_profil"
@@ -147,21 +160,21 @@ useHead({
             placeholder="Photo de profil"
           />
         </div>
-        <div class="flex items-center mb-4">
-          <input type="checkbox" id="polconfident" v-model="polconfident" class="mr-2" />
-          <label for="polconfident" class="text-sm"
-            >J'approuve
-            <RouterLink to="/PolitiqueConfidentialite" class="text-sky-500"
-              >la politique de confidentialité</RouterLink
-            ></label
-          >
+        <div class="flex items-center mb-5">
+          <input
+            type="checkbox"
+            id="polconfident"
+            v-model="polconfident"
+            class="mr-2"
+          />
+          <label for="polconfident" class="text-sm">J'accepte la <a href="#" class="text-blue-500">politique de confidentialité</a></label>
         </div>
-        <p class="text-red-500">{{ errorMessage }}</p>
-        <div class="flex justify-center mb-2 lg:justify-center lg:pt-4">
-          <Button @click="handleValidation" url="" text="Créer un compte" />
+        <p class="text-red-500 mb-2">{{ errorMessage }}</p>
+        <div class="flex justify-center mb-2 lg:justify-center lg:pt-8">
+          <Button @click="handleValidation" url="" text="S'inscrire" />
         </div>
         <div class="flex justify-center mb-4 text-sm">
-          <p>Déjà inscrit ?</p>
+          <p>Vous nêtes deja inscrit ?</p>
           <RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
         </div>
       </form>
