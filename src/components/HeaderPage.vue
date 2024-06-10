@@ -15,7 +15,7 @@ function closeMenu() {
 </script>
 
 <template>
- <!-- <header class=" top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 ">
+  <!-- <header class=" top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 ">
     <a href="/">
       <IconLogo />
     </a>
@@ -95,19 +95,18 @@ function closeMenu() {
 
   -->
 
-
-  <header class="fixed top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 bg-sky-700">
+  <header
+    class="fixed top-0 left-0 w-full flex items-center justify-between px-4 gap-8 h-20 bg-sky-700"
+  >
     <div class="flex items-center">
       <RouterLink to="/">
         <IconLogo />
       </RouterLink>
     </div>
 
-    <div class="flex items-center gap-4 ">
-      
-
+    <div class="flex items-center gap-4">
       <button
-        class="relative z-10 flex h-5 w-8 flex-col justify-between *:h-[2px]  *:w-full *:bg-white *:transition-all *:duration-300 *:ease lg:hidden"
+        class="relative z-50 flex h-5 w-8 flex-col justify-between *:h-[2px] *:w-full *:bg-white *:transition-all *:duration-300 *:ease lg:hidden"
         @click="activeMenu = !activeMenu"
       >
         <div :class="{ 'translate-y-[9px] rotate-45 !bg-white': activeMenu }"></div>
@@ -116,12 +115,11 @@ function closeMenu() {
       </button>
 
       <nav
-        class="invisible fixed inset-0 bg-indigo text-2xl text-white bg-sky-700 opacity-0 transition-all duration-300 ease-in-out lg:visible lg:relative lg:flex lg:items-center lg:bg-transparent lg:text-sm lg:font-bold lg:uppercase lg:tracking-wide lg:text-white lg:opacity-100"
+        class="invisible fixed inset-0 z-40 bg-indigo text-2xl text-white bg-sky-700 opacity-0 transition-all duration-300 ease-in-out lg:visible lg:relative lg:flex lg:items-center lg:bg-transparent lg:text-sm lg:font-bold lg:uppercase lg:tracking-wide lg:text-white lg:opacity-100"
         :class="{ '!visible opacity-100': activeMenu }"
         v-scroll-lock="activeMenu"
       >
-        <ul class="mt-[15vh]  text-center lg:m-5 lg:flex lg:gap-6">
-        
+        <ul class="mt-[15vh] text-center lg:m-5 lg:flex lg:gap-6">
           <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/sessionCalme" @click="closeMenu"
               >Session calme</RouterLink
@@ -133,10 +131,14 @@ function closeMenu() {
             >
           </li>
           <li class="menu-item mb-10">
-            <RouterLink class="menu-link" to="/voirCitation" @click="closeMenu">Voir une citation inspirante</RouterLink>
+            <RouterLink class="menu-link" to="/citation" @click="closeMenu"
+              >Voir une citation inspirante</RouterLink
+            >
           </li>
           <li class="menu-item mb-10">
-            <RouterLink class="menu-link" to="/creerSouvenir" @click="closeMenu">Créer un souvenir</RouterLink>
+            <RouterLink class="menu-link" to="/creerSouvenir" @click="closeMenu"
+              >Créer un souvenir</RouterLink
+            >
           </li>
           <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/contact" @click="closeMenu">Contact</RouterLink>
@@ -144,40 +146,34 @@ function closeMenu() {
           <li class="menu-item mb-10">
             <RouterLink class="menu-link" to="/APropos" @click="closeMenu">À propos</RouterLink>
           </li>
-          
-          
-
         </ul>
         <ul class="flex gap-12 justify-center lg:hidden">
-        <li>
-          <a href="#" aria-label="Facebook"
-            ><IconFacebook class="fill-white" aria-hidden="true"
-          /></a>
-        </li>
-        <li>
-          <a href="#" aria-label="Instagram"
-            ><IconInstagram class="fill-white" aria-hidden="true"
-          /></a>
-        </li>
-        <li>
-          <a href="#" aria-label="Twitter"
-            ><IconTwitter class="fill-white" aria-hidden="true"
-          /></a>
-        </li>
-        <li>
-          <a href="#" aria-label="Linkedin"
-            ><IconLinkedin class="fill-white" aria-hidden="true"
-          /></a>
-        </li>
-        <li>
-          <a href="#" aria-label="Tiktok"
-            ><IconTiktok class="fill-white" aria-hidden="true"
-          /></a>
-        </li>
-      </ul>
+          <li>
+            <a href="#" aria-label="Facebook"
+              ><IconFacebook class="fill-white" aria-hidden="true"
+            /></a>
+          </li>
+          <li>
+            <a href="#" aria-label="Instagram"
+              ><IconInstagram class="fill-white" aria-hidden="true"
+            /></a>
+          </li>
+          <li>
+            <a href="#" aria-label="Twitter"
+              ><IconTwitter class="fill-white" aria-hidden="true"
+            /></a>
+          </li>
+          <li>
+            <a href="#" aria-label="Linkedin"
+              ><IconLinkedin class="fill-white" aria-hidden="true"
+            /></a>
+          </li>
+          <li>
+            <a href="#" aria-label="Tiktok"><IconTiktok class="fill-white" aria-hidden="true" /></a>
+          </li>
+        </ul>
       </nav>
     </div>
   </header>
-  <main class="pt-20">
-  </main>
+  <main class="pt-20"></main>
 </template>

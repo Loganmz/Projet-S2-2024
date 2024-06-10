@@ -61,9 +61,10 @@ console.log('coucou' + data.value)
         <div class="flex justify-center mb-2 lg:justify-center lg:pt-8">
           <Button @click="handleValidation" url="" text="Se connecter" />
         </div>
-        <div class="flex justify-center mb-4">
-    <p>Vous n'êtes pas encore inscrit ? </p><RouterLink to="/Inscription" class="text-sky-500">Inscrivez-vous ici !</RouterLink>
-  </div>
+        <div class="flex justify-center mb-4 text-sm">
+          <p>Vous n'êtes pas encore inscrit ?</p>
+          <RouterLink to="/Inscription" class="text-sky-500">Inscrivez-vous ici !</RouterLink>
+        </div>
       </form>
     </div>
   </div>

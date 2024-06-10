@@ -144,13 +144,14 @@ const handleFileChange = (event) => {
             ></label
           >
         </div>
-        <p class="text-red-500 ">{{ errorMessage }}</p>
+        <p class="text-red-500">{{ errorMessage }}</p>
         <div class="flex justify-center mb-2 lg:justify-center lg:pt-4">
           <Button @click="handleValidation" url="" text="Créer un compte" />
         </div>
-        <div class="flex justify-center mb-4">
-    <p>Déjà inscrit ? </p><RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
-  </div>
+        <div class="flex justify-center mb-4 text-sm">
+          <p>Déjà inscrit ?</p>
+          <RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
+        </div>
       </form>
     </div>
   </div>
