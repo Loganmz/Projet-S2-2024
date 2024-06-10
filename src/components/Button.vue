@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    variant?: 'default' | 'blue' 
+    variant?: 'default' | 'blue' | 'circle' 
     size?: 'small' | 'medium' | 'large'
     url?: string
     text?: string
@@ -15,6 +15,7 @@ const props = withDefaults(
 const variantClass = {
   default: 'bg-black',
   blue: 'bg-sky-700 text-white',
+  circle: 'bg-sky-700 text-white rounded-full'
 }
 const sizeClass = {
   small: 'px-4 py-2.5 text-sm',
