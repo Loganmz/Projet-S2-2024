@@ -1,5 +1,16 @@
 <script setup lang="ts">
 //
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Conditions général de vente | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Consultez les Conditions Générales de Vente (CGV) de PuryMind pour souscrire à un abonnement Premium et accéder à des fonctionnalités exclusives.'
+        }
+    ]
+})
+
 </script>
 
 <template>

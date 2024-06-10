@@ -13,6 +13,18 @@ const showCapturePhoto = ref(false);
 const createSouvenir = () => {
   showCapturePhoto.value = true;
 };
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Créer un souvenir | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Créez vos propres souvenirs et capturez les meilleurs moments de vos journées.'
+        }
+    ]
+})
+
 </script>
 
 <template>

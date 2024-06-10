@@ -1,11 +1,36 @@
 <script setup lang="ts">
-//
+import Card from '@/components/Card.vue'
+import { pb } from '@/backend';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router/auto';
+const RecommandationListe = await pb.collection('activite').getFullList({filter: 'recommandation=true'});
+const ActiviteListe = await pb.collection('activite').getFullList({filter: 'recommandation=false'});
+
+const router = useRouter();
+
+// onMounted(() => {
+//     if (!pb.authStore.model) {
+//         router.replace('/welcome')
+//     }
+// })
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Accueil | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Accueil de PuryMind, application de gestion de la santé mentale.'
+        }
+    ]
+})
+
 </script>
 
 <template>
-  <section>
+  <section class="container">
     <h3>13 fev</h3>
-    <h2>Comment vous santez-vous aujourd'hui ?</h2>
+    <h2>Comment vous sentez-vous aujourd'hui ?</h2>
     <div class="grid grid-cols-4">
         <div>
             <RouterLink to="#">
@@ -33,27 +58,29 @@
         </div>
     </div>
   </section>
-  <section>
-    <h2>Recommandation</h2>
-    <div class="grid grid-cols-2">
-    <div>
-        <RouterLink to="#">
-                <img src="/public\img\session-calme.jpg" alt="photo session calme" class="p-4 rounded shadow  "/>
-                <p>session calme</p>
-            </RouterLink>
+  <section class="container grid grid-cols-1 gap-9">
+    <h2 class="text-xl font-semibold">Recommandation</h2>
+    <div class="grid grid-cols-2 gap-6">
+
+        <Card v-for="activite in RecommandationListe" :key="activite.nom_activite" v-bind="activite"/>
+
     </div>
-    <div>
-        <RouterLink to="#">
-                <img src="/public\img\voir-un-souvenirs.jpg" alt="photo voir un souvenirs" class="p-4 rounded shadow  " />
-                <p>Voir un souvenirs</p>
-            </RouterLink>
+    <h2 class="text-xl font-semibold">Poursuit ta journée</h2>
+    <div class="grid grid-cols-2 gap-6">
+        <div>
+
+        </div>
+
+        <div>
+            
+        </div>
+        
     </div>
-    <div>
-        <RouterLink to="#">
-                <img src="/public\img\citation_photo.jpg" alt="citation inspirante" class="p-4  rounded shadow " />
-                <p>Citation inspirante</p>
-            </RouterLink>
-    </div>
+    <h2 class="text-xl font-semibold">Tu peux aussi</h2>
+    <div class="grid grid-cols-2 gap-6">
+
+        <Card v-for="activite in ActiviteListe" :key="activite.nom_activite" v-bind="activite"/>
+
     </div>
   </section>
 </template>

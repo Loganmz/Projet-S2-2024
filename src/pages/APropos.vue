@@ -4,6 +4,18 @@ import avatar_chloe from '@/components/icons/avatar_chloe.vue';
 import avatar_noelie from '@/components/icons/avatar_noelie.vue';
 
 
+=======
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'A propos | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Découvrez l\'équipe de PuryMind, qui sommes nous ?'
+        }
+    ]
+})
 </script>
 <template>
   <div class="text-center">

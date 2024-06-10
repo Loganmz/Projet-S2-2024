@@ -1,5 +1,16 @@
 <script setup lang="ts">
 //
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Contact | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Contactez-nous pour toute question, demande ou suggestion. Nous sommes là pour vous aider à trouver l’équilibre et l’épanouissement personnel.'
+        }
+    ]
+})
 </script>
 
 <template>

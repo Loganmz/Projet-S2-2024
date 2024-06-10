@@ -1,5 +1,16 @@
 <script setup lang="ts">
 //
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Condition général d\'utilisation | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Consultez les conditions générales d\'utilisation de PuryMind pour accéder à nos services de méditation en ligne.'
+        }
+    ]
+})
+
 </script>
 
 <template>

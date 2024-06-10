@@ -55,6 +55,18 @@ console.log('coucou' + data.value)
 const handleFileChange = (event) => {
   data.value.photo_de_profil = event.target.files[0]
 }
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Inscription | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: ' Page d inscription de PuryMind, venez vous découvrir avec PuryMind !'
+        }
+    ]
+})
+
 </script>
 
 <template>
