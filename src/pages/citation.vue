@@ -1,72 +1,76 @@
-<script setup>
-import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+import PocketBase from 'pocketbase'
+import { formatDate } from '@/helper';
 
-const quote = ref("Loading...");
-const author = ref("");
-const isFullscreen = ref(false);
+// Définir les références pour la citation du jour, l'auteur et la date
+const dailyQuote = ref('')
+const dailyAuthor = ref('')
+const dailyDate = ref('')
+const dailyQuoteId = ref('')
 
-const loadQuote = async () => {
-    try {
-        const proxyUrl = 'https://api.allorigins.win/get?url=';
-        const targetUrl = encodeURIComponent('http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json');
-        const response = await fetch(proxyUrl + targetUrl);
-        const data = await response.json();
-        const quoteData = JSON.parse(data.contents);
-        quote.value = quoteData.quoteText;
-        author.value = quoteData.quoteAuthor || "Unknown";
+// Définir les références pour les trois citations récentes
+const recentQuotes = ref<{quote: string, author: string, date: string}[]>([])
 
-        // Enregistrement des données dans la base de données Pocket
-        await saveQuote(quoteData.quoteText, author.value);
-    } catch (error) {
-        quote.value = "La citation n'a pas pu être chargée. Veuillez réessayer plus tard.";
-        author.value = "";
-    }
-};
-
-const saveQuote = async (quoteText, quoteAuthor) => {
-    try {
-        const params = new URLSearchParams({
-            citation: quoteText,
-            auteur: quoteAuthor,
-            date: new Date().toISOString()
-        });
-
-        const response = await fetch(`http://127.0.0.1:8090?${params.toString()}`, {
-            method: 'GET',
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Traitez la réponse si nécessaire
-    } catch (error) {
-        console.error("Erreur lors de l'enregistrement de la citation:", error);
-    }
-};
+// Initialiser PocketBase avec l'URL de votre instance
+const pb = new PocketBase('http://localhost:8090')
 
 onMounted(async () => {
-    await loadQuote();
-    setInterval(loadQuote, 24 * 60 * 60 * 1000); // Charge une nouvelle citation toutes les 24 heures
-});
+    try {
+        // Récupérer la citation du jour
+        const response = await axios.get('api/api/today')
+        dailyQuote.value = response.data[0].q
+        dailyAuthor.value = response.data[0].a
 
-const toggleFullscreen = () => {
-    isFullscreen.value = !isFullscreen.value;
-};
+        // Obtenir la date actuelle
+        const today = new Date()
+        dailyDate.value = today.toISOString().split('T')[0] // Format YYYY-MM-DD
+
+        // Envoyer la citation, l'auteur et la date à PocketBase
+        const record = await pb.collection('citation').create({
+            quote: dailyQuote.value,
+            author: dailyAuthor.value,
+            date: dailyDate.value
+        })
+        dailyQuoteId.value = record.id // Stocker l'ID de la citation du jour
+        console.log('Record created:', record)
+
+        // Récupérer les trois citations les plus récentes de PocketBase, en excluant celle du jour
+        const recentRecords = await pb.collection('citation').getList(1, 4, {
+            sort: '-date',
+            filter: `id != "${dailyQuoteId.value}"`
+        })
+        recentQuotes.value = recentRecords.items.slice(1, 4).map(item => ({
+            quote: item.quote,
+            author: item.author,
+            date: item.date
+        }))
+        console.log('Recent quotes:', recentQuotes.value)
+
+    } catch (error) {
+        console.error('Error:', error)
+    }
+})
 </script>
 
 <template>
-    <h1 class="text-2xl font-bold mb-4 p-6">Citation du jour</h1>
-    <div class="flex items-start min-h-screen bg-gray-100">
-      <div 
-        :class="[
-          'bg-black text-white p-6 rounded-lg shadow-lg text-center transform transition-transform duration-500 mx-6',
-          isFullscreen.value ? 'w-screen h-screen' : 'max-w-3xl w-full',
-        ]"
-        @click="toggleFullscreen"
-      >
-        <p class="text-lg italic mb-4">"{{ quote }}"</p>
-        <p class="text-md font-semibold text-gray-300">-{{ author }}</p>
-      </div>
-    </div>
+    <main class="p-4">
+        <h1 class="text-2xl font-bold py-4 text-center">Citation du jour</h1>
+        <div v-if="dailyQuote" class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+            <p class="text-lg">"{{ dailyQuote }}" - {{ dailyAuthor }}</p>
+        </div>
+        <p v-else>La citation n'a pas été chargée</p>
+
+        <h2 class="text-xl font-bold py-4 text-center">Citations récentes</h2>
+        <div v-if="recentQuotes.length > 0">
+            <ul>
+                <li v-for="(quote, index) in recentQuotes" :key="index" class="bg-gray-100 p-4 my-2 rounded-lg shadow ">
+                    <p class="text-base">"{{ quote.quote }}" - {{ quote.author }}</p>
+                    <p class="text-sm text-gray-600">{{formatDate(quote.date) }}</p>
+                </li>
+            </ul>
+        </div>
+        <p v-else>Pas de citations récentes disponibles</p>
+    </main>
 </template>
