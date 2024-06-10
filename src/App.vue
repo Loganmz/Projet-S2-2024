@@ -5,6 +5,7 @@ import FooterPage from './components/FooterPage.vue'
 import HeaderPage from './components/HeaderPage.vue'
 
 
+
 onErrorCaptured((err, instance, info) => {
   console.error('erreur : ', err, '/ninfo : ', info, '/ncomposant : ', instance)
   return true
@@ -13,10 +14,12 @@ onErrorCaptured((err, instance, info) => {
 
 <template>
   <HeaderPage />
-  <RouterView v-slot="{ Component }">
-    <Suspense>
-      <component :is="Component" />
-    </Suspense>
-  </RouterView>
+  <main>
+    <RouterView v-slot="{ Component }">
+      <Suspense>
+        <component :is="Component" />
+      </Suspense>
+    </RouterView>
+  </main>
   <FooterPage />
 </template>
