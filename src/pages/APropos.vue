@@ -1,4 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'A propos | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Découvrez l\'équipe de PuryMind, qui sommes nous ?'
+        }
+    ]
+})
+</script>
 <template>
   <div class="text-center">
     <h1 class="text-sky-400 mb-3 mt-10 lg:mt-14">L'Équipe</h1>

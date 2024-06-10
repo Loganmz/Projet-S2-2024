@@ -1,5 +1,17 @@
 <script setup lang="ts">
 //
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Cookies | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Découvrez notre politique de cookies sur PuryMind. Nous utilisons des cookies pour vous offrir la meilleure expérience possible sur notre application Web.'
+        },
+    ]
+})
+
 </script>
 
 <template>

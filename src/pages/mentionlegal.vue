@@ -1,5 +1,17 @@
 <script setup lang="ts">
 //
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Mention Légal | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Mentions légales de l application PuryMind, vous trouverez ici toutes les informations légales relatives à l utilisation de l application.'
+        }
+    ]
+})
+
 </script>
 
 <template>

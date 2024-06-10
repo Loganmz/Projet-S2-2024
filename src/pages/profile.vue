@@ -82,6 +82,18 @@ const enregistrerProfil = () => {
   console.log('Prénom:', prenom.value)
   console.log('Profile Image:', profileImage.value)
 }
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Profile | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Votre profil PuryMind'
+        }
+    ]
+})
+
 </script>
 
 

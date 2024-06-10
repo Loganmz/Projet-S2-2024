@@ -52,6 +52,19 @@ onMounted(async () => {
         console.error('Error:', error)
     }
 })
+
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Citation | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Découvrez une citation inspirante chaque jour et consultez les citations récentes.'
+        }
+    ]
+})
+
 </script>
 
 <template>

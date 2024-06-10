@@ -26,6 +26,18 @@ const handleValidation = async () => {
 }
 
 console.log('coucou' + data.value)
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Connexion | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Connectez-vous à votre compte PuryMind pour accéder à vos projets et vos tâches.'
+        }
+    ]
+})
+
 </script>
 
 <template>

@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import Button from '@/components/Button.vue'
+
+
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Erreur | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: 'Erreur 404 - Page non trouvée sur PuryMind'
+        }
+    ]
+})
+
 </script>
 
 <template>

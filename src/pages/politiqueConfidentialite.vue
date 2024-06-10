@@ -1,5 +1,16 @@
 <script setup lang="ts">
 //
+import { useHead } from '@unhead/vue'
+useHead({
+  title: 'Politique de Confidentialités | PuryMind',
+    meta: [
+        {
+        name: 'description',
+        content: ' Découvrez notre politique de confidentialité pour protéger vos données personnelles sur PuryMind.'
+        }
+    ]
+})
+
 </script>
 
 <template>
