@@ -1,37 +1,28 @@
 <script setup lang="ts">
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-
-interface Meditation {
-  id: number;
-  title: string;
-  description: string;
-  audio_url: string;
-}
-
-const meditations = ref<Meditation[]>([]);
-
-const fetchMeditations = async () => {
-  try {
-    const response = await axios.get('https://api.calm.com/meditations');
-    meditations.value = response.data; // Assuming the API returns an array of meditations
-  } catch (error) {
-    console.error('Error fetching meditations:', error);
-  }
-};
-
-onMounted(fetchMeditations);
+  import { ref, computed, onMounted } from 'vue';
+  
+  const isInspiring = ref(true);
+  const message = ref('Inspirez');
+  
+  const breathingClass = computed(() => isInspiring.value ? 'scale-100 transition-transform duration-[4000ms] ease-in-out' : 'scale-50 transition-transform duration-[4000ms] ease-in-out');
+  
+  onMounted(() => {
+    setInterval(() => {
+      isInspiring.value = !isInspiring.value;
+      message.value = isInspiring.value ? 'Inspirez' : 'Respirez';
+    }, 4000);
+  });
 </script>
 
 <template>
-    <div>
-      <h1>Guided Meditations</h1>
-      <ul>
-        <li v-for="meditation in meditations" :key="meditation.id">
-          <h2>{{ meditation.title }}</h2>
-          <p>{{ meditation.description }}</p>
-          <audio controls :src="meditation.audio_url"></audio>
-        </li>
-      </ul>
+  <div class="flex justify-center items-center h-screen bg-black">
+    <div class="text-center">
+        <p class="text-white" >4 sec</p>
+      <div class="relative h-64 w-64 rounded-full bg-sky-700">
+        <!-- Utilisation des transitions CSS -->
+        <div :class="[breathingClass]" class="absolute top-0 left-0 h-full w-full rounded-full bg-sky-500"></div>
+      </div>
+      <p class="mt-4 text-xl font-semibold text-white">{{ message }}</p>
     </div>
-  </template>
+  </div>
+</template>
