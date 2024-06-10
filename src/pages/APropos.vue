@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import avatarLogan from '@/components/icons/SVG/avatar-logan.vue';
+import avatar_chloe from '@/components/icons/avatar_chloe.vue';
+import avatar_noelie from '@/components/icons/avatar_noelie.vue';
+
+
+</script>
 <template>
   <div class="text-center">
     <h1 class="text-sky-400 mb-3 mt-10 lg:mt-14">L'Équipe</h1>
@@ -6,18 +12,18 @@
   </div>
   <div class="text-center mr-12 ml-12 lg:grid lg:grid-cols-3 lg:mb-20 mb-20">
     <div
-      class="flex flex-col items-center mx-5 mb-10 lg:border lg:border-gray-300 lg:rounded lg:shadow-lg lg:h-full lg:px-9"
+      class="flex flex-col items-center mx-5 lg:mx-10 rounded shadow-2xl  h-full p-9"
     >
-      <img src="" alt="avatar Logan" />
+    <avatar-logan class="h-40 w-40" />
       <p class="text-sky-400 mt-2">Logan</p>
       <p>
         <strong>L’esprit créatif</strong> de l’équipe, créant des visuels relaxants et magnifiques.
       </p>
     </div>
     <div
-      class="flex flex-col items-center mb-10 mx-5 lg:mx-10 lg:border lg:border-gray-300 lg:rounded lg:shadow-lg lg:h-full lg:px-9"
+      class="flex flex-col items-center mx-5 lg:mx-10 rounded shadow-2xl  h-full p-9 mt-10"
     >
-      <img src="" alt="avatar Chloé" />
+      <avatar_chloe class="h-40 w-40" />
       <p class="text-sky-400 mt-2">Chloé</p>
       <p>
         Chloé se charge du <strong>développement du site</strong>, vous permet de naviguer
@@ -25,9 +31,9 @@
       </p>
     </div>
     <div
-      class="flex flex-col items-center mx-5 lg:mx-10 lg:border lg:border-gray-300 lg:rounded lg:shadow-lg lg:h-full lg:px-9"
+      class="flex flex-col items-center mx-5 lg:mx-10 rounded shadow-2xl  h-full p-9 mt-10"
     >
-      <img src="" alt="avatar Noélie" />
+    <avatar_noelie class="h-40 w-40" />
       <p class="text-sky-400 mt-2">Noélie</p>
       <p>
         Noélie est la personne chargée de la <strong>communication</strong>, elle vous fait rêver à
