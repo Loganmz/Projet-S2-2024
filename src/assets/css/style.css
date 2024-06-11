@@ -27,3 +27,6 @@
         } */
     
     }
+        .gradient-bg {
+            background: linear-gradient(to bottom, #A9DAE5, #0055A3);
+        }

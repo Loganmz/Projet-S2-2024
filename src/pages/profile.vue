@@ -46,8 +46,8 @@
           />
         </div>
         <div class="flex items-center justify-center">
-          <div class="flex justify-center mb-2 lg:justify-center lg:pt-4">
-          <Button class="mt-4" url="" text="Enregistrer" />
+          <div class="flex items-center justify-center mt-4">
+          <Button class="" url="/" text="Enregistrer" />
         </div>
         <div class="flex items-center justify-center mt-4">
         <Button @click="logout" text="Se déconnecter" />

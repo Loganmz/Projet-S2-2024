@@ -1,25 +1,29 @@
-<template>
-  <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
-    <div>
-      <h3 class="text-lg font-bold">{{ title }}</h3>
-      <p class="text-sm text-gray-500">
-        {{ description }}
-        <span v-if="duration" class="font-semibold"> - {{ duration }}</span>
-      </p>
-    </div>
-    <div class="ml-4">
-      <img :src="imageSrc" alt="Icon" class="w-16 h-16 rounded-full object-cover">
-    </div>
-  </div>
-</template>
 
 <script setup lang="ts">
+import type { TodolistResponse } from '@/pocketbase-types';
 import { defineProps } from 'vue';
+import ImgPb from './ImgPb.vue';
 
-const props = defineProps<{
-  title: string,
-  description: string,
-  imageSrc: string,
-  duration?: string
-}>();
+const props = defineProps<TodolistResponse<any>>();
+const { id, nom_activite, description, image_activite, duration } = props;
 </script>
+
+
+<template>
+  <RouterLink :to="'/activite/' + id">
+    <section class="text-black text-sm">
+      <div class="flex items-center p-4 bg-white rounded-lg shadow-md space-x-4">
+        
+        <div class="grid items-center justify-center grid-cols-1">
+        <h3 class="py-5 col-start-1">{{ nom_activite }}</h3>
+        <p class="text-xs text-gray-500 col-start-1">
+          {{ description }}
+          <span v-if="duration" class="font-semibold"> - {{ duration }}</span>
+        </p>
+      </div>
+      <ImgPb :record="props" :filename="image_activite" class="w-16 h-16 object-cover rounded-full" />
+      </div>
+      
+    </section>
+  </RouterLink>
+</template>
