@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Card from '@/components/Card.vue'
 import { pb } from '@/backend'
-import { onMounted } from 'vue'
+import { onMounted,ref } from 'vue'
 import { useRouter } from 'vue-router/auto'
 import iconRoundcheck from '@/components/icons/iconRoundcheck.vue'
 import iconRoundfull from '@/components/icons/iconRoundfull.vue'
@@ -32,6 +32,27 @@ useHead({
 })
 
 const steps = [{ icon: iconRoundcheck }, { icon: iconRoundcheck }, { icon: iconRoundfull }]
+
+const cardstodolist = ref([
+  {
+    title: 'How do you feel today ?',
+    description: 'Lorem ipsum dolor sit amet consectetur. Urna.',
+    imageSrc: EmojiIcon,
+    duration: ''
+  },
+  {
+    title: 'Quick calm session',
+    description: 'Lorem ipsum dolor sit amet consectetur. Urna.',
+    imageSrc: CalmSessionIcon,
+    duration: '5 min'
+  },
+  {
+    title: 'Learn the quote of the day',
+    description: 'Lorem ipsum dolor sit amet consectetur. Urna.',
+    imageSrc: QuoteIcon,
+    duration: ''
+  }
+]);
 </script>
 
 <template>
@@ -87,7 +108,19 @@ const steps = [{ icon: iconRoundcheck }, { icon: iconRoundcheck }, { icon: iconR
         </div>
       </div>
 
-      <div></div>
+      <div>
+
+        <div class="flex flex-col items-center space-y-4 p-4">
+    <Cardtodolist 
+      v-for="(Cardtodolist, index) in cardstodolist" 
+      :key="index" 
+      :title="Cardtodolist.title" 
+      :description="Cardtodolist.description" 
+      :imageSrc="Cardtodolist.imageSrc" 
+      :duration="Cardtodolist.duration" 
+    />
+  </div>
+      </div>
     </div>
     <h2 class="text-xl font-semibold">Tu peux aussi</h2>
     <div class="grid grid-cols-2 gap-6">
