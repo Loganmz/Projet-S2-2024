@@ -57,7 +57,7 @@
     <div class="text-center mt-2">
       {{ getPhotoDate(selectedPhotoUrl) }}
     </div>
-    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white text-5xl ">&times;</button> -->
+    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white text-5xl ">&times;</button> 
     <!-- Bouton Supprimer -->
    <div class="text-center mt-2">
       <button @click="deleteSelectedPhoto" class="text-red-500">Supprimer</button>
