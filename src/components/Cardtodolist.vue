@@ -6,6 +6,19 @@ import ImgPb from './ImgPb.vue';
 
 const props = defineProps<TodolistResponse<any>>();
 const { id, nom_activite, description, image_activite, duration } = props;
+
+interface Todolist {
+  nom_activite: string;
+  description: string;
+  image_activite: string;
+  id: string;
+  collectionId: string;
+  collectionName: string;
+  duration: string;
+  created: string;
+  updated: string;
+}
+
 </script>
 
 

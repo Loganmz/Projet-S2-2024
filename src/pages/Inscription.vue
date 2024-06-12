@@ -57,7 +57,7 @@ const handleValidation = async () => {
         console.log('Utilisateur ajouté avec succès :', data.value);
         errorMessage.value = '';
       } catch (error) {
-        errorMessage.value = 'Erreur lors de la création de l\'utilisateur : ' + error.message;
+        errorMessage.value = 'Erreur lors de la création de l\'utilisateur' ;
       }
     }
   }

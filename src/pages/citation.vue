@@ -14,7 +14,7 @@ const dailyQuoteId = ref('')
 const recentQuotes = ref<{quote: string, author: string, date: string}[]>([])
 
 // Initialiser PocketBase avec l'URL de votre instance
-const pb = new PocketBase('http://localhost:8090')
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr/')
 
 onMounted(async () => {
     try {

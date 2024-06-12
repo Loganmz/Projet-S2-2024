@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-   <footer class="bg-gradient-to-b from-sky-300 to-sky-700 space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0 bottom-0 w-full">
+   <footer class="bg-gradient-to-b from-sky-400 to-sky-700 space-y-10 pt-20 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0 bottom-0 w-full">
     <IconLogo class=" mx-auto lg:col-span-1" />
     <nav
       class="px-5 columns-1 text-center gap-8 space-y-8 lg:columns-2 lg:col-span-3 lg:px-0 *:break-inside-avoid *:space-y-3 lg:text-left"

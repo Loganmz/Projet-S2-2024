@@ -20,7 +20,7 @@ const handleValidation = async () => {
       await signIn({ email: data.value.usernameOrEmail, password: data.value.password })
       router.push('/') // redirection après connexion réussie
     } catch (error) {
-      errorMessage.value = error.message
+      errorMessage.value = 'Erreur lors de la connexion de l\'utilisateur' ;
     }
   }
 }
@@ -77,7 +77,9 @@ useHead({
           <p>Vous n'êtes pas encore inscrit ?</p>
           <RouterLink to="/Inscription" class="text-sky-500">Inscrivez-vous ici !</RouterLink>
         </div>
+        <RouterLink to="/ResetPasswordRequest" class="text-sky-500">Mots de passe oublié ?</RouterLink>
       </form>
     </div>
+    
   </div>
 </template>
