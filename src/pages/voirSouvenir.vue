@@ -50,14 +50,14 @@
     </div> 
 
     
-<div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal">
-  <div class="absolute inset-0 bg-black opacity-75"></div>
+<div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal" v-scroll-lock>
+  <div class="absolute inset-0 bg-black opacity-75 v-scroll-lock"></div>
   <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
     <img :src="selectedPhotoUrl" class="max-w-full max-h-full" alt="photo" />
     <div class="text-center mt-2">
       {{ getPhotoDate(selectedPhotoUrl) }}
     </div>
-    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white">&times;</button> -->
+    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white text-5xl ">&times;</button> -->
     <!-- Bouton Supprimer -->
    <div class="text-center mt-2">
       <button @click="deleteSelectedPhoto" class="text-red-500">Supprimer</button>
@@ -73,6 +73,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from 'vue';
 import PocketBase from 'pocketbase';
+
 
 const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr:443');
 
@@ -132,9 +133,7 @@ async function fetchPhotos() {
       date: new Date(record.date_de_la_photo),
       url: pb.files.getUrl(record, record.photo),
     }));
-    nextTick(() => {
-      scrollToCurrentMonth();
-    });
+   
   } catch (err) {
     console.error('Erreur lors de la récupération des photos :', err);
   }
@@ -179,9 +178,7 @@ function getPhotoDate(url: string) {
 
 function setCurrentMonth(month: number) {
   currentMonth.value = month;
-  nextTick(() => {
-    scrollToCurrentMonth();
-  });
+  
 }
 
 function filterByMonth(month: number) {
@@ -214,12 +211,7 @@ async function deletePhoto(photoId: string) {
   }
 }
 
-function scrollToCurrentMonth() {
-  const currentMonthElement = currentMonthRef.value;
-  if (currentMonthElement) {
-    currentMonthElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
+
 </script>
 
 

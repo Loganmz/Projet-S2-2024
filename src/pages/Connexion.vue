@@ -44,29 +44,30 @@ useHead({
 <template>
   <div class="px-5 flex flex-col gap-5">
     <div class="flex flex-col gap-8">
-      <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl">Connexion</h1>
+      <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl text-sky-500 text-center">Bienvenue sur Purymind !</h1>
     </div>
+        <h2 class="text-3xl font-bold text-center">Connexion</h2>
     <div class="container mx-auto mt-2">
       <form class="max-w-md mx-auto text-black" @submit.prevent="handleValidation">
         <div class="mb-5">
-          <label for="usernameOrEmail" class="block text-sm font-medium text-gray-700"
+          <label for="usernameOrEmail" class="block text-sm font-medium text-gray-700 mb-2"
             >Email ou nom d'utilisateur</label
           >
           <input
             type="text"
             id="usernameOrEmail"
             v-model="data.usernameOrEmail"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2 border-2 bg-slate-200/50 rounded-md"
             placeholder="ex : lucas.dupont@gmail.com ou lucas_dp"
           />
         </div>
         <div class="mb-5">
-          <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
           <input
             type="password"
             id="password"
             v-model="data.password"
-            class="w-full placeholder:text-black font-light px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full placeholder:text-black font-light px-4 py-2 border-2 bg-slate-200/50 rounded-md"
             placeholder="8 caractères minimum"
           />
         </div>
@@ -75,10 +76,10 @@ useHead({
           <Button @click="handleValidation" url="" text="Se connecter" />
         </div>
         <div class="flex justify-center mb-4 text-sm">
-          <p>Vous n'êtes pas encore inscrit ?</p>
+          <p>Pas encore inscrit ?</p>
           <RouterLink to="/Inscription" class="text-sky-500">Inscrivez-vous ici !</RouterLink>
         </div>
-        <RouterLink to="/ResetPasswordRequest" class="text-sky-500">Mots de passe oublié ?</RouterLink>
+        <RouterLink to="/ResetPasswordRequest" class="flex justify-center mb-4 text-sm text-sky-500">Mots de passe oublié ?</RouterLink>
       </form>
     </div>
     

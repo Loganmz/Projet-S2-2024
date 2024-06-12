@@ -83,6 +83,7 @@ const onFileChange = (event: Event) => {
   }
 };
 
+
 const enregistrerProfil = () => {
   console.log('Nom:', nom.value);
   console.log('Prénom:', prenom.value);
@@ -92,7 +93,7 @@ const enregistrerProfil = () => {
 const logout = async () => {
   try {
     pb.authStore.clear(); // Efface le token d'authentification et déconnecte l'utilisateur
-    router.push('/connexion'); // Redirige vers la page de connexion après déconnexion
+    router.push('/Connexion'); // Redirige vers la page de connexion après déconnexion
   } catch (error) {
     console.error('Erreur lors de la déconnexion:', error);
   }

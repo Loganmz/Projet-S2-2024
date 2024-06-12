@@ -57,6 +57,8 @@ export async function savePhoto(photoDataUrl: string, date: string, lieu: string
     }
 }
 
+
+
 // // Fonction de demande de réinitialisation de mot de passe
 // export async function requestPasswordReset(email: string) {
 //   try {

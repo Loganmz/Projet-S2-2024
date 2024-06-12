@@ -80,22 +80,24 @@ useHead({
     }
   ]
 })
+
 </script>
 
 <template>
   <div class="px-5 flex flex-col gap-5">
     <div class="flex flex-col gap-8">
-      <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl">Créer un compte</h1>
+      <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl text-sky-500 text-center">Bienvenue sur Purymind !</h1>
     </div>
+    <h2 class="text-3xl font-bold text-center">Inscription</h2>
     <div class="container mx-auto mt-2">
       <form class="max-w-md mx-auto text-black" @submit.prevent="handleValidation">
-        <div class="mb-5">
+        <div class="mb-5 ">
           <label for="prenom">Prénom</label>
           <input
             type="text"
             id="prenom"
             v-model="data.prenom"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2 border-2 rounded-md bg-slate-200/50"
             placeholder="ex : Lucas"
           />
         </div>
@@ -105,7 +107,7 @@ useHead({
             type="text"
             id="nom"
             v-model="data.nom"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2 border-2 rounded-md bg-slate-200/50"
             placeholder="ex : Dupont"
           />
         </div>
@@ -115,7 +117,7 @@ useHead({
             type="text"
             id="username"
             v-model="data.username"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 rounded-md bg-slate-200/50"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2 * border-2 rounded-md bg-slate-200/50"
             placeholder="ex : lucas_dp"
           />
         </div>
@@ -125,7 +127,7 @@ useHead({
             type="email"
             id="email"
             v-model="data.email"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2 border-2 bg-slate-200/50 rounded-md"
             placeholder="ex : lucas.dupont@gmail.com"
           />
         </div>
@@ -135,7 +137,7 @@ useHead({
             type="password"
             id="password"
             v-model="data.password"
-            class="w-full placeholder:text-black font-light px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full placeholder:text-black font-light px-4 py-2  border-2 bg-slate-200/50 rounded-md"
             placeholder="8 caractères minimum"
           />
         </div>
@@ -145,7 +147,7 @@ useHead({
             type="password"
             id="confirmPassword"
             v-model="data.passwordConfirm"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2  border-2 bg-slate-200/50 rounded-md"
             placeholder="8 caractères minimum"
           />
         </div>
@@ -156,7 +158,7 @@ useHead({
             id="photo_de_profil"
             accept="image/*"
             @change="handleFileChange"
-            class="w-full font-light placeholder:text-black px-4 py-2 border-white border-2 bg-slate-200/50 rounded-md"
+            class="border-gray-500 w-full font-light placeholder:text-black px-4 py-2  border-2 bg-slate-200/50 rounded-md"
             placeholder="Photo de profil"
           />
         </div>
@@ -167,14 +169,13 @@ useHead({
             v-model="polconfident"
             class="mr-2"
           />
-          <label for="polconfident" class="text-sm">J'accepte la <a href="#" class="text-blue-500">politique de confidentialité</a></label>
-        </div>
+<label for="polconfident" class="text-sm">J'accepte la <RouterLink to="/politiqueConfidentialite" class="text-blue-500">politique de confidentialité</RouterLink></label>        </div>
         <p class="text-red-500 mb-2">{{ errorMessage }}</p>
         <div class="flex justify-center mb-2 lg:justify-center lg:pt-8">
           <Button @click="handleValidation" url="" text="S'inscrire" />
         </div>
         <div class="flex justify-center mb-4 text-sm">
-          <p>Vous nêtes deja inscrit ?</p>
+          <p>Vous êtes deja inscrit ?</p>
           <RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
         </div>
       </form>

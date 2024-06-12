@@ -20,8 +20,8 @@ const doLoginOAuth = async () => {
 <template>
   <div class="flex flex-col min-h-screen bg-gray-100">
     <div class="py-4 px-4">
-      <h1 class="text-center text-4xl font-bold mb-4">Bienvenue sur PuryMind</h1>
-      <p class="text-center text-gray-500 mb-8">
+      <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl text-sky-500 text-center">Bienvenue sur Purymind !</h1>
+      <p class="text-center text-black my-8">
         Retrouvez votre sérénité pour collectionner les bons moments
       </p>
       <div class="flex justify-center">
@@ -32,13 +32,14 @@ const doLoginOAuth = async () => {
         <span class="px-4 text-gray-500">Ou</span>
         <div class="flex-grow h-px bg-gray-300"></div>
       </div>
-      <div class="w-full">
-        <button @click="doLoginOAuth" id="g-signin2">Connexion avec Google</button>
+      
+      <div class="w-full flex justify-center">
+        <button class="bg-black px-6 py-3 text-base inline-flex items-center gap-2 text-white border-2 font-bold rounded-lg transition duration-300 ease-in-out" @click="doLoginOAuth" id="g-signin2">Connexion avec Google</button>
       </div>
-      <p class="text-center text-gray-500 mt-8">
-        Vous avez déjà un compte ?
-        <router-link to="/Connexion" class="text-black">Se connecter</router-link>
-      </p>
+      <div class="flex justify-center my-4 text-sm">
+          <p>Vous êtes deja inscrit ?</p>
+          <RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
+        </div>
     </div>
   </div>
 </template>
