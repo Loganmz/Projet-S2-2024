@@ -2,52 +2,19 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Button from '@/components/Button.vue'
+import { pb } from '@/backend'
 
-// Interface pour googleUser
-interface GoogleUser {
-  getAuthResponse(): { id_token: string }
-}
+const router = useRouter();
 
-const router = useRouter()
-
-onMounted(() => {
-  const onGoogleSignIn = (googleUser: GoogleUser) => {
-    const id_token = googleUser.getAuthResponse().id_token
-    fetch('/auth/google', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ token: id_token })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          router.push('/') // Redirige après une inscription réussie
-        } else {
-          alert("Erreur d'inscription avec Google")
-        }
-      })
-  }
-
-  const onFailure = (error: any) => {
-    console.log(error)
-  }
-
-  if (typeof gapi !== 'undefined' && gapi.signin2) {
-    gapi.signin2.render('g-signin2', {
-      scope: 'profile email',
-      width: 240,
-      height: 50,
-      longtitle: true,
-      theme: 'dark',
-      onsuccess: onGoogleSignIn,
-      onfailure: onFailure
-    })
-  } else {
-    console.error('gapi.signin2 is not available.')
-  }
-})
+const doLoginOAuth = async () => {
+    try {
+        const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+        // Si l'authentification réussit, rediriger vers l'index
+        router.push('/');
+    } catch (error) {
+        console.error('Authentication failed', error);
+    }
+};
 </script>
 
 <template>
@@ -58,7 +25,7 @@ onMounted(() => {
         Retrouvez votre sérénité pour collectionner les bons moments
       </p>
       <div class="flex justify-center">
-        <Button url="/inscription" text="Continuer avec une email" />
+        <Button url="/Inscription" text="Continuer avec une email" />
       </div>
       <div class="flex items-center my-4">
         <div class="flex-grow h-px bg-gray-300"></div>
@@ -66,7 +33,7 @@ onMounted(() => {
         <div class="flex-grow h-px bg-gray-300"></div>
       </div>
       <div class="w-full">
-        <div id="g-signin2"></div>
+        <button @click="doLoginOAuth" id="g-signin2">Connexion avec Google</button>
       </div>
       <p class="text-center text-gray-500 mt-8">
         Vous avez déjà un compte ?

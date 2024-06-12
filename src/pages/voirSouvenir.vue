@@ -1,3 +1,4 @@
+
 <template>
   <div class="p-4">
     <div class="flex justify-between mb-4">
@@ -25,8 +26,8 @@
       <div
         class="border p-2"
         v-for="(month, index) in visibleMonths"
-        :key="month"
-        :ref="month === currentMonth ? 'currentMonth' : 'month' + index"
+        key="month"
+        ref="month === currentMonth ? 'currentMonth' : 'month' + index"
       >
         <div class="font-bold text-center mb-2">{{ getMonthName(month.month) }}</div>
         <div class="grid grid-cols-7 gap-1">
@@ -46,10 +47,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
 
-    <!-- Modal -->
-    <!-- Modal -->
+    
 <div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal">
   <div class="absolute inset-0 bg-black opacity-75"></div>
   <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
@@ -57,9 +57,9 @@
     <div class="text-center mt-2">
       {{ getPhotoDate(selectedPhotoUrl) }}
     </div>
-    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white">&times;</button>
+    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white">&times;</button> -->
     <!-- Bouton Supprimer -->
-    <div class="text-center mt-2">
+   <div class="text-center mt-2">
       <button @click="deleteSelectedPhoto" class="text-red-500">Supprimer</button>
     </div>
   </div>
@@ -74,9 +74,9 @@
 import { ref, computed, onMounted, nextTick } from 'vue';
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr:443');
 
-const photos = ref([]);
+const photos = ref<{ id: string; date: Date; url: string; }[]>([]);
 let currentYear = ref(new Date().getFullYear());
 let currentMonth = ref<number | null>(new Date().getMonth() + 1);
 let showModal = ref(false);
@@ -144,7 +144,7 @@ function getMonthName(month: number) {
   return new Date(0, month - 1).toLocaleString('default', { month: 'long' });
 }
 
-function getDaysInMonth({ year, month }) {
+function getDaysInMonth({ year, month }: { year: number, month: number }) {
   const daysInMonth = new Date(year, month, 0).getDate();
   const days = [];
   for (let i = 1; i <= daysInMonth; i++) {
@@ -202,7 +202,7 @@ async function deleteSelectedPhoto() {
   }
 }
 
-async function deletePhoto(photoId) {
+async function deletePhoto(photoId: string) {
   try {
     // Supprimer la photo de l'interface utilisateur
     photos.value = photos.value.filter(photo => photo.id !== photoId);

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const props = defineProps<ActiviteResponse<any>>()
 import ImgPb from './ImgPb.vue'
 
-interface Activite {
+interface activite {
   id: string;
   collectionId: string;
   collectionName: string;
@@ -14,6 +14,7 @@ interface Activite {
   image_session: string;
   created: string;
   updated: string;
+  description?: string;
 }
 
 </script>

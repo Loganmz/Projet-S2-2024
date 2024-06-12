@@ -14,7 +14,7 @@ const dailyQuoteId = ref('')
 const recentQuotes = ref<{quote: string, author: string, date: string}[]>([])
 
 // Initialiser PocketBase avec l'URL de votre instance
-const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr/')
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr:443')
 
 onMounted(async () => {
     try {
@@ -25,7 +25,7 @@ onMounted(async () => {
 
         // Obtenir la date actuelle
         const today = new Date()
-        dailyDate.value = today.toISOString().split('T')[0] // Format YYYY-MM-DD
+        dailyDate.value = today.toISOString().split('T')[0] 
 
         // Envoyer la citation, l'auteur et la date à PocketBase
         const record = await pb.collection('citation').create({
@@ -39,7 +39,7 @@ onMounted(async () => {
         // Récupérer les trois citations les plus récentes de PocketBase, en excluant celle du jour
         const recentRecords = await pb.collection('citation').getList(1, 4, {
             sort: '-date',
-            filter: `id != "${dailyQuoteId.value}"`
+            filter: `id != "${dailyQuoteId.value}"`,
         })
         recentQuotes.value = recentRecords.items.slice(1, 4).map(item => ({
             quote: item.quote,

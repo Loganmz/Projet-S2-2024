@@ -10,7 +10,7 @@
   onMounted(() => {
     setInterval(() => {
       isInspiring.value = !isInspiring.value;
-      message.value = isInspiring.value ? 'Inspirez' : 'Respirez';
+      message.value = isInspiring.value ? 'Inspirez' : 'Expirez';
     }, 4000);
 
     

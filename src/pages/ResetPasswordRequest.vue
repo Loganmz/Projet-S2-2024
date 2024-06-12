@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref } from 'vue'
 import { requestPasswordReset } from '@/backend'
 import { useRouter } from 'vue-router'
@@ -58,4 +58,7 @@ const handleResetRequest = async () => {
       </form>
     </div>
   </div>
-</template>
+</template> -->
+
+
+<template></template>

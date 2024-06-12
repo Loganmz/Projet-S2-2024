@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref } from 'vue'
 import { resetPassword } from '@/backend'
 import { useRouter, useRoute } from 'vue-router'
@@ -19,7 +19,7 @@ const handlePasswordReset = async () => {
     errorMessage.value = '⚠ Veuillez entrer un nouveau mot de passe'
   } else {
     try {
-      await resetPassword(data.value.token, data.value.newPassword)
+      await resetPassword(data.value.token.toString(), data.value.newPassword)
       successMessage.value = 'Votre mot de passe a été réinitialisé avec succès.'
       errorMessage.value = ''
       router.push('/Connexion')
@@ -58,4 +58,6 @@ const handlePasswordReset = async () => {
       </form>
     </div>
   </div>
-</template>
+</template> -->
+
+<template></template>

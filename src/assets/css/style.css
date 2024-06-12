@@ -33,5 +33,5 @@
        
 
                 .img-overlay {
-                    filter: brightness(80%) opacity(80%) contrast(140%) saturate(50%) blur(1px) drop-shadow(0 0 5px rgb(255, 255, 255, 0.5));
+                    filter: brightness(80%) opacity(80%) contrast(140%) saturate(50%) ;
                 }

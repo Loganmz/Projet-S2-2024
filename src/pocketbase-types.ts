@@ -46,6 +46,7 @@ export type SouvenirsPhotoRecord = {
 }
 
 export type ActiviteRecord = {
+	description?: string
 	image_activite?: string
 	image_session?: string
 	nom_activite?: string
@@ -66,7 +67,9 @@ export enum SuivisHumeurHumeurOptions {
 	"pas bien" = "pas bien",
 }
 export type SuivisHumeurRecord = {
+	date_humeur?: IsoDateString
 	humeur?: SuivisHumeurHumeurOptions
+	image_humeur?: string
 	suit?: RecordIdString
 }
 

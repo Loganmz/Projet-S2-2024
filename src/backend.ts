@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-import { type TypedPocketBase } from './pocketbase-types.js';
+import { type TypedPocketBase } from './pocketbase-types';
 
 export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE) as TypedPocketBase;
 
@@ -37,7 +37,7 @@ export async function signIn(user: { email: string, password: string }) {
     }
 }
 
-const POCKETBASE_URL = 'http://127.0.0.1:8090';
+const POCKETBASE_URL = 'https://app-purymind.noelie-talhouarn.fr/';
 
 export async function savePhoto(photoDataUrl: string, date: string, lieu: string): Promise<any> {
     try {
@@ -57,21 +57,22 @@ export async function savePhoto(photoDataUrl: string, date: string, lieu: string
     }
 }
 
-// Fonction de demande de réinitialisation de mot de passe
-export async function requestPasswordReset(email: string) {
-  try {
-    await pb.users.requestPasswordReset(email)
-  } catch (error) {
-    console.log(error); // Ajoutez cette ligne
-    throw new Error('Erreur lors de la demande de réinitialisation de mot de passe.')
-  }
-}
+// // Fonction de demande de réinitialisation de mot de passe
+// export async function requestPasswordReset(email: string) {
+//   try {
+//     await pb.users.requestPasswordReset(email)
+//   } catch (error) {
+//     console.log(error); // Ajoutez cette ligne
+//     throw new Error('Erreur lors de la demande de réinitialisation de mot de passe.')
+//   }
+// }
 
-export async function resetPassword(token: string, newPassword: string) {
-  try {
-    await pb.users.confirmPasswordReset(token, newPassword, newPassword)
-  } catch (error) {
-    console.log(error); // Ajoutez cette ligne
-    throw new Error('Erreur lors de la réinitialisation du mot de passe.')
-  }
-}
+// export async function resetPassword(token: string, newPassword: string) {
+//   try {
+//     await pb.users.confirmPasswordReset(token, newPassword, newPassword)
+//   } catch (error) {
+//     console.log(error); // Ajoutez cette ligne
+//     throw new Error('Erreur lors de la réinitialisation du mot de passe.')
+//   }
+// }
+

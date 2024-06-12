@@ -13,7 +13,7 @@ onErrorCaptured((err, instance, info) => {
 </script>
 
 <template>
-  <HeaderPage />
+  <HeaderPage  v-if="!['/Inscription', '/Connexion', '/ResetPassword', '/ResetPasswordRequest','/AvantConnexion'].includes($route.path)" />
   <main>
     <RouterView v-slot="{ Component }">
       <Suspense>
@@ -21,5 +21,5 @@ onErrorCaptured((err, instance, info) => {
       </Suspense>
     </RouterView>
   </main>
-  <FooterPage />
+  <FooterPage  v-if="!['/Inscription', '/Connexion', '/ResetPassword', '/ResetPasswordRequest','/AvantConnexion'].includes($route.path)"/>
 </template>
