@@ -20,9 +20,9 @@ import { RouterLink } from 'vue-router'
     >
       <div>
         <ul class="text-white font-bold text-base lg:text-base">
-          <li><RouterLink to="/sessionCalme">Session calme</RouterLink></li>
+          <li><RouterLink to="/CalmSession">Session calme</RouterLink></li>
           <li><RouterLink to="/voirSouvenir">Voir un souvenir</RouterLink></li>
-          <li><RouterLink to="/voirCitation">Voir une citation inspirante</RouterLink></li>
+          <li><RouterLink to="/Citation">Voir une citation inspirante</RouterLink></li>
           <li><RouterLink to="/creerSouvenir">Créer un souvenir</RouterLink></li>
           <li><RouterLink to="/contact">Contact</RouterLink></li>
 

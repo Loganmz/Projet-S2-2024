@@ -160,7 +160,12 @@ const steps = [{ icon: iconRoundcheck }, { icon: iconRoundcheck }, { icon: iconR
             </RouterLink>
           </div>
         </div>
-
+        <RouterLink to="/Premium">
+          <div class="h-72" >
+            <h2>Suis tes progrès</h2>
+          <img class=" flex justify-center w-screen" src="/public/img/lock.webp" alt="premium" />
+          </div>
+          </RouterLink>
         <h2 class="text-xl font-semibold">Tu peux aussi</h2>
         <Suspense>
           <template #default>

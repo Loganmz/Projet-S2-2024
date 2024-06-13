@@ -1,5 +1,5 @@
-<!-- <script setup lang="ts">
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, watch } from 'vue'
 import { resetPassword } from '@/backend'
 import { useRouter, useRoute } from 'vue-router'
 import Button from '@/components/Button.vue'
@@ -10,23 +10,29 @@ const errorMessage = ref('')
 const successMessage = ref('')
 
 const data = ref({
-  token: route.query.token || '',
+  token: route.query.token as string || '',
   newPassword: ''
 })
+
+// Si le token peut changer après le chargement initial, vous pouvez utiliser watch pour mettre à jour la valeur.
+watch(
+  () => route.query.token,
+  (newToken) => {
+    data.value.token = newToken as string || ''
+  }
+)
 
 const handlePasswordReset = async () => {
   if (data.value.newPassword === '') {
     errorMessage.value = '⚠ Veuillez entrer un nouveau mot de passe'
   } else {
     try {
-      await resetPassword(data.value.token.toString(), data.value.newPassword)
+      await resetPassword(data.value.token, data.value.newPassword)
       successMessage.value = 'Votre mot de passe a été réinitialisé avec succès.'
       errorMessage.value = ''
       router.push('/Connexion')
     } catch (error) {
       errorMessage.value = 'Erreur lors de la réinitialisation du mot de passe.'
-
-
       successMessage.value = ''
     }
   }
@@ -58,6 +64,4 @@ const handlePasswordReset = async () => {
       </form>
     </div>
   </div>
-</template> -->
-
-<template></template>
+</template> 

@@ -37,6 +37,17 @@ export async function signIn(user: { email: string, password: string }) {
     }
 }
 
+// export async function updateProfile(userId: string, data: { nom?: string, prenom?: string, photo_de_profil?: string }) {
+//   try {
+//     const updatedUser = await pb.collection('users').update(userId, data);
+//     // Met à jour le modèle d'utilisateur dans le store
+//     pb.authStore.model = updatedUser;
+//     return updatedUser;
+//   } catch (error) {
+//     throw new Error('Erreur lors de la mise à jour du profil');
+//   }
+// }
+
 const POCKETBASE_URL = 'https://app-purymind.noelie-talhouarn.fr/';
 
 export async function savePhoto(photoDataUrl: string, date: string, lieu: string): Promise<any> {
@@ -59,22 +70,22 @@ export async function savePhoto(photoDataUrl: string, date: string, lieu: string
 
 
 
-// // Fonction de demande de réinitialisation de mot de passe
-// export async function requestPasswordReset(email: string) {
-//   try {
-//     await pb.users.requestPasswordReset(email)
-//   } catch (error) {
-//     console.log(error); // Ajoutez cette ligne
-//     throw new Error('Erreur lors de la demande de réinitialisation de mot de passe.')
-//   }
-// }
-
-// export async function resetPassword(token: string, newPassword: string) {
-//   try {
-//     await pb.users.confirmPasswordReset(token, newPassword, newPassword)
-//   } catch (error) {
-//     console.log(error); // Ajoutez cette ligne
-//     throw new Error('Erreur lors de la réinitialisation du mot de passe.')
-//   }
-// }
-
+// Fonction pour réinitialiser le mot de passe
+export async function resetPassword(token: string, newPassword: string) {
+    try {
+        console.log('Resetting password with token:', token);
+        await pb.collection('users').confirmPasswordReset(token, newPassword, newPassword);
+        console.log('Password reset successful');
+    } catch (error) {
+        console.error('Error resetting password:');
+        throw new Error('Error resetting password: ');
+    }
+}
+// Fonction pour demander une réinitialisation de mot de passe
+export async function requestPasswordReset(email: string) {
+    try {
+        await pb.collection('users').requestPasswordReset(email);
+    } catch (error) {
+        throw new Error('Erreur lors de la demande de réinitialisation de mot de passe: ');
+    }
+}
