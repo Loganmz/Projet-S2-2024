@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import Button from '@/components/Button.vue'
 import PocketBase from 'pocketbase'
 const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr/'); // Remplacez par l'URL correcte de votre backend PocketBase
+// const pb = new PocketBase('http://127.0.0.1:8090'); // Remplacez par l'URL correcte de votre backend PocketBase
 
 const router = useRouter()
 const errorMessage = ref('')

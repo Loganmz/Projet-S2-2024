@@ -218,6 +218,3 @@ useHead({
     
   </main>
 </template>
-
-
-

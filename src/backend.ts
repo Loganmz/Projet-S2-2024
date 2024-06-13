@@ -49,7 +49,7 @@ export async function updateProfile(userId: string, data: { nom?: string, prenom
 }
 
 const POCKETBASE_URL = 'https://app-purymind.noelie-talhouarn.fr/';
-
+// const POCKETBASE_URL = 'http://127.0.0.1:8090';
 export async function savePhoto(photoDataUrl: string, date: string, lieu: string): Promise<any> {
     try {
         const response = await fetch(photoDataUrl);

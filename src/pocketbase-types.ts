@@ -9,6 +9,7 @@ export enum Collections {
 	SouvenirsPhoto = "Souvenirs_photo",
 	Activite = "activite",
 	Citation = "citation",
+	CreerCitation = "creer_citation",
 	SuivisHumeur = "suivis_humeur",
 	Todolist = "todolist",
 	Users = "users",
@@ -60,6 +61,13 @@ export type CitationRecord = {
 	quote?: string
 }
 
+export type CreerCitationRecord = {
+	author_creer?: string
+	creer?: RecordIdString
+	date_citation_creer?: IsoDateString
+	quote_creer?: string
+}
+
 export enum SuivisHumeurHumeurOptions {
 	"super bien" = "super bien",
 	"bien" = "bien",
@@ -90,6 +98,7 @@ export type UsersRecord = {
 export type SouvenirsPhotoResponse<Texpand = unknown> = Required<SouvenirsPhotoRecord> & BaseSystemFields<Texpand>
 export type ActiviteResponse<Texpand = unknown> = Required<ActiviteRecord> & BaseSystemFields<Texpand>
 export type CitationResponse<Texpand = unknown> = Required<CitationRecord> & BaseSystemFields<Texpand>
+export type CreerCitationResponse<Texpand = unknown> = Required<CreerCitationRecord> & BaseSystemFields<Texpand>
 export type SuivisHumeurResponse<Texpand = unknown> = Required<SuivisHumeurRecord> & BaseSystemFields<Texpand>
 export type TodolistResponse<Texpand = unknown> = Required<TodolistRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
@@ -100,6 +109,7 @@ export type CollectionRecords = {
 	Souvenirs_photo: SouvenirsPhotoRecord
 	activite: ActiviteRecord
 	citation: CitationRecord
+	creer_citation: CreerCitationRecord
 	suivis_humeur: SuivisHumeurRecord
 	todolist: TodolistRecord
 	users: UsersRecord
@@ -109,6 +119,7 @@ export type CollectionResponses = {
 	Souvenirs_photo: SouvenirsPhotoResponse
 	activite: ActiviteResponse
 	citation: CitationResponse
+	creer_citation: CreerCitationResponse
 	suivis_humeur: SuivisHumeurResponse
 	todolist: TodolistResponse
 	users: UsersResponse
@@ -121,6 +132,7 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'Souvenirs_photo'): RecordService<SouvenirsPhotoResponse>
 	collection(idOrName: 'activite'): RecordService<ActiviteResponse>
 	collection(idOrName: 'citation'): RecordService<CitationResponse>
+	collection(idOrName: 'creer_citation'): RecordService<CreerCitationResponse>
 	collection(idOrName: 'suivis_humeur'): RecordService<SuivisHumeurResponse>
 	collection(idOrName: 'todolist'): RecordService<TodolistResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
