@@ -37,16 +37,16 @@ export async function signIn(user: { email: string, password: string }) {
     }
 }
 
-// export async function updateProfile(userId: string, data: { nom?: string, prenom?: string, photo_de_profil?: string }) {
-//   try {
-//     const updatedUser = await pb.collection('users').update(userId, data);
-//     // Met à jour le modèle d'utilisateur dans le store
-//     pb.authStore.model = updatedUser;
-//     return updatedUser;
-//   } catch (error) {
-//     throw new Error('Erreur lors de la mise à jour du profil');
-//   }
-// }
+export async function updateProfile(userId: string, data: { nom?: string, prenom?: string, photo_de_profil?: string }) {
+  try {
+    const updatedUser = await pb.collection('users').update(userId, data);
+    // Met à jour le modèle d'utilisateur dans le store
+    pb.authStore.model = updatedUser;
+    return updatedUser;
+  } catch (error) {
+    throw new Error('Erreur lors de la mise à jour du profil');
+  }
+}
 
 const POCKETBASE_URL = 'https://app-purymind.noelie-talhouarn.fr/';
 

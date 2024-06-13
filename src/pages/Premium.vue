@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import iconCheck from '@/components/icons/iconRoundcheck.vue'
+import Button from '@/components/Button.vue'    
 </script>
 
 <template>
@@ -26,5 +27,8 @@ import iconCheck from '@/components/icons/iconRoundcheck.vue'
         </li>
         
     </ul>
+    <div class="flex justify-center mb-2 pt-8 lg:justify-center lg:pt-8">
+          <Button url="abonnement" text="S'abonner" />
+        </div>
     </section>
 </template>

@@ -118,6 +118,9 @@ useHead({
 })
 
 const steps = [{ icon: iconRoundcheck }, { icon: iconRoundcheck }, { icon: iconRoundfull }]
+
+
+
 </script>
 <template>
   <div>

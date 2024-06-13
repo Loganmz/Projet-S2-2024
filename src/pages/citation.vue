@@ -20,7 +20,7 @@ const userQuotes = ref<{quote: string, author: string, date: string, id: string}
 const newQuote = ref<{quote: string, author: string, date: string}>({ quote: '', author: '', date: '' })
 
 // Initialiser PocketBase avec l'URL de votre instance
-const pb = new PocketBase('http://127.0.0.1:8090')
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr:443/')
 
 // Fonction pour ajouter une nouvelle citation
 const addNewQuote = async () => {

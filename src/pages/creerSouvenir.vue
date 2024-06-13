@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://localhost:5173/');
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr/');
 import CapturePhoto from '@/components/CapturePhoto.vue';
 import Button from '@/components/Button.vue';
 

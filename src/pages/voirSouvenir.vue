@@ -1,4 +1,3 @@
-
 <template>
   <div class="p-4">
     <div class="flex justify-between mb-4">
@@ -26,12 +25,12 @@
       <div
         class="border p-2"
         v-for="(month, index) in visibleMonths"
-        key="month"
-        ref="month === currentMonth ? 'currentMonth' : 'month' + index"
+        :key="`month-${index}`"
+        :ref="currentMonthRef === month ? 'currentMonth' : `month-${index}`"
       >
         <div class="font-bold text-center mb-2">{{ getMonthName(month.month) }}</div>
         <div class="grid grid-cols-7 gap-1">
-          <div class="border p-1" v-for="day in getDaysInMonth(month)" :key="day.date">
+          <div class="border p-1" v-for="day in getDaysInMonth(month)" :key="`day-${day.date}`">
             <div class="text-right">{{ day.date }}</div>
             <div>
               <img
@@ -42,48 +41,65 @@
                 alt="photo"
                 @click="showPhoto(photo.url)"
               />
-              
             </div>
           </div>
         </div>
       </div>
-    </div> 
-
-    
-<div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal" v-scroll-lock>
-  <div class="absolute inset-0 bg-black opacity-75 v-scroll-lock"></div>
-  <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
-    <img :src="selectedPhotoUrl" class="max-w-full max-h-full" alt="photo" />
-    <div class="text-center mt-2">
-      {{ getPhotoDate(selectedPhotoUrl) }}
     </div>
-    <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white text-5xl ">&times;</button> 
-    <!-- Bouton Supprimer -->
-   <div class="text-center mt-2">
-      <button @click="deleteSelectedPhoto" class="text-red-500">Supprimer</button>
+
+    <div class="fixed inset-0 z-10 flex items-center justify-center" v-if="showModal" v-scroll-lock>
+      <div class="absolute inset-0 bg-black opacity-75 v-scroll-lock"></div>
+      <div class="z-20 bg-white p-4 max-w-full max-h-full overflow-auto">
+        <img :src="selectedPhotoUrl" class="max-w-full max-h-full" alt="photo" />
+        <div class="text-center mt-2">
+          {{ getPhotoDate(selectedPhotoUrl) }}
+        </div>
+        <button @click="closeModal" class="absolute top-0 right-0 m-4 text-white text-5xl ">&times;</button>
+        <div class="text-center mt-2">
+          <button @click="deleteSelectedPhoto" class="text-red-500">Supprimer</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-  </div>
-
 </template>
 
-
-
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import PocketBase from 'pocketbase';
 
+const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr/');
 
-const pb = new PocketBase('https://app-purymind.noelie-talhouarn.fr:443');
-
-const photos = ref<{ id: string; date: Date; url: string; }[]>([]);
+const photos = ref<{ id: string; date: Date; url: string; possede: string }[]>([]);
 let currentYear = ref(new Date().getFullYear());
 let currentMonth = ref<number | null>(new Date().getMonth() + 1);
 let showModal = ref(false);
 let selectedPhotoUrl = ref('');
 let showFilterDropdown = ref(false);
 const currentMonthRef = ref<HTMLDivElement | null>(null);
+
+console.log(pb.authStore.model.id);
+
+const fetchPhotos = async () => {
+  try {
+    const records = await pb.collection('Souvenirs_photo').getFullList({
+      filter: `possede = '${pb.authStore.model.id}'` // Filtrer par l'utilisateur connecté
+    });
+    photos.value = records
+      .map(record => ({
+        id: record.id,
+        date: new Date(record.date_de_la_photo),
+        url: pb.files.getUrl(record, record.photo),
+        possede: record.possede, // Utilisation du champ "possede" au lieu de "createdBy"
+      }));
+  } catch (err) {
+    console.error('Erreur lors de la récupération des photos :', err);
+  }
+};
+
+onMounted(() => {
+  currentYear.value = new Date().getFullYear();
+  fetchPhotos();
+});
 
 const visibleMonths = computed(() => {
   const months = [];
@@ -120,30 +136,11 @@ const availableMonths = computed(() => {
   return months;
 });
 
-onMounted(() => {
-  currentYear.value = new Date().getFullYear();
-  fetchPhotos();
-});
-
-async function fetchPhotos() {
-  try {
-    const records = await pb.collection('Souvenirs_photo').getFullList();
-    photos.value = records.map(record => ({
-      id: record.id,
-      date: new Date(record.date_de_la_photo),
-      url: pb.files.getUrl(record, record.photo),
-    }));
-   
-  } catch (err) {
-    console.error('Erreur lors de la récupération des photos :', err);
-  }
-}
-
 function getMonthName(month: number) {
   return new Date(0, month - 1).toLocaleString('default', { month: 'long' });
 }
 
-function getDaysInMonth({ year, month }: { year: number, month: number }) {
+function getDaysInMonth({ year, month }: { year: number; month: number }) {
   const daysInMonth = new Date(year, month, 0).getDate();
   const days = [];
   for (let i = 1; i <= daysInMonth; i++) {
@@ -178,7 +175,6 @@ function getPhotoDate(url: string) {
 
 function setCurrentMonth(month: number) {
   currentMonth.value = month;
-  
 }
 
 function filterByMonth(month: number) {
@@ -189,6 +185,7 @@ function filterByMonth(month: number) {
 function toggleFilterDropdown() {
   showFilterDropdown.value = !showFilterDropdown.value;
 }
+
 async function deleteSelectedPhoto() {
   if (selectedPhotoUrl.value) {
     const photoToDelete = photos.value.find(photo => photo.url === selectedPhotoUrl.value);
@@ -211,7 +208,4 @@ async function deletePhoto(photoId: string) {
   }
 }
 
-
 </script>
-
-

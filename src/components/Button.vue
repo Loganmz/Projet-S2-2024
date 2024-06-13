@@ -26,7 +26,7 @@ const sizeClass = {
 
 <template>
   <RouterLink
-    class="inline-flex items-center gap-2 text-white border-2 font-bold rounded-lg transition duration-300 ease-in-out"
+    class="inline-flex items-center gap-2 text-white  font-bold rounded-lg transition duration-300 ease-in-out"
     :class="[variantClass[props.variant], sizeClass[props.size]]"
     :to="`${url}`"
   >

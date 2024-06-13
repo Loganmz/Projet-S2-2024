@@ -1,25 +1,6 @@
-<template>
-  <div class="welcome flex flex-col items-center justify-center">
-    
-    <!-- <img src="@/assets/logo.png" alt="PuryMind Logo" class="max-w-100px mb-6" /> -->
-    <h1 class="flex justify-center mt-10 font-Marigny font-bold text-4xl text-sky-500 text-center">Bienvenue sur Purymind !</h1>
-      <p class="text-center text-black my-8">
-        Retrouvez votre sérénité pour collectionner les bons moments
-      </p>
-        <Button url="/AvantConnexion" text="Commencer" />
-
-    
-    <div class="flex justify-center my-4 text-sm">
-          <p>Vous êtes deja inscrit ?</p>
-          <RouterLink to="/Connexion" class="text-sky-500">Connectez-vous ici !</RouterLink>
-        </div>
-  </div>
-  
-</template>
-
 <script setup lang="ts">
 import Button from '@/components/Button.vue'
-
+import IconLogo from '@/components/icons/IconLogoloading.vue'
 import { useHead } from '@unhead/vue'
 useHead({
   title: 'Welcome | PuryMind',
@@ -32,4 +13,28 @@ useHead({
 })
 
 </script>
+
+
+<template>
+  <section class="container h-screen grid grid-rows-4 gradient-bg">
+    <div class="row-start-2">
+      <IconLogo class="w-24 h-24 mx-auto" />
+    </div>
+  <div class="welcome flex flex-col row-start-3 items-center justify-center">
+      
+    <h1 class="flex justify-center font-Marigny font-bold text-4xl text-white text-center">Bienvenue sur Purymind !</h1>
+      <p class="text-center text-white text-base font-extralight my-8">
+        Retrouvez votre sérénité pour collectionner les bons moments
+      </p>
+        <Button url="/AvantConnexion" text="Commencer" />
+
+    
+    <div class="flex justify-center text-center text-white my-4 text-sm">
+          <p class="px-1">Vous êtes deja inscrit ?</p>
+          <RouterLink to="/Connexion" class="text-white border-b ">Connectez-vous ici !</RouterLink>
+        </div>
+  </div>
+  </section>
+</template>
+
 
